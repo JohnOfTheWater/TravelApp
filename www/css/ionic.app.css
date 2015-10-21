@@ -9290,6 +9290,12 @@ a.button {
 body {
   background-color: whitesmoke; }
 
+.earth-custom {
+  height: 30px;
+  width: 30px;
+  font-size: 33px;
+  margin-left: 5px; }
+
 .custom-button {
   margin-left: 4px; }
 

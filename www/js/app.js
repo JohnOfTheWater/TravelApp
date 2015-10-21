@@ -30,14 +30,16 @@ travel.controller('ListCtrl', function($scope, Items) {
   $scope.items = Items;
 
   Items.$loaded(function(){
-    console.log('categories loaded from database!');
+    // console.log('categories loaded from database!');
   });
 
   $scope.addItem = function(){
     var name = prompt('Please insert a new Category');
+    var city = $('#earth-icon').attr('value');
     if(name){
       $scope.items.$add({
-        'name':name
+        'name': name,
+        'city': city
       });
     }
   };
@@ -50,11 +52,5 @@ travel.controller('ListCtrl', function($scope, Items) {
         alert('category deleted!')
       });
   };
-
-});
-
-travel.controller('GeoCtrl', function($scope, $cordovaGeolocation) {
-
-
 
 });

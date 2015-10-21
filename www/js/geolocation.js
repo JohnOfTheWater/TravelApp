@@ -2,7 +2,15 @@ function getCity(geocoder, map, infoWindow, latlng) {
   geocoder.geocode({'location': latlng}, function(results, status) {
     if (status === google.maps.GeocoderStatus.OK) {
       if (results[1]) {
-        infoWindow.setContent(results[1].formatted_address);
+        var cityName = results[1].address_components[0].long_name;
+        // infoWindow.setContent(results[1].formatted_address);
+        infoWindow.setContent('you are in '+cityName);
+        // console.log(results[1].address_components[0].long_name);
+        $('#earth-icon').attr('value', cityName);
+        setTimeout(function(){
+          infoWindow.close();
+          // console.log(infoWindow);
+        }, 2000);
         // infowindow.open(map, marker);
       } else {
         window.alert('No results found');
@@ -28,7 +36,7 @@ function initMap() {
   });
 
   var geocoder = new google.maps.Geocoder;
-  var infoWindow = new google.maps.InfoWindow({map: map});
+  var infoWindow = new google.maps.InfoWindow({map: map, content: '<div class="mylabel">The label</div>'});
 
   // Try HTML5 geolocation.
   if (navigator.geolocation) {
