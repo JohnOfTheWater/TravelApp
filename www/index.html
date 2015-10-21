@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+
+    <!-- compiled css output -->
+    <link href="css/ionic.app.css" rel="stylesheet">
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <script src="js/firebase-web.js"></script>
+    <script src="js/angularfire.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+  </head>
+  <body ng-app="starter" ng-controller="ListCtrl">
+    <ion-header-bar class="top bar-positive"><!-- header-bar -->
+      <h1 class="title">Travel App</h1>
+      <button class="button button-icon ion-plus" ng-click="addItem()"></button>
+    </ion-header-bar><!-- end of header-bar -->
+
+    <ion-content>
+      <ion-list>
+        <ion-item ng-repeat="item in items">
+          {{item.name}}
+          <ion-option-button class="button-assertive" ng-click="deleteItem(item)">
+            <i class="icon ion-close-circled custom-button"></i>
+          </ion-option-button>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+
+  </body>
+</html>
