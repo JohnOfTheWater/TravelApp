@@ -9292,3 +9292,10 @@ body {
 
 .custom-button {
   margin-left: 4px; }
+
+#map {
+  height: 300px; }
+  #map .gm-sm {
+    display: none !important; }
+  #map .login-control {
+    display: none !important; }

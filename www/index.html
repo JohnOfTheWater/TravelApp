@@ -20,6 +20,9 @@
 
     <!-- your app's js -->
     <script src="js/app.js"></script>
+    <script src="js/geolocation.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMtvvvpS6EdDRhhcPa-gbRaoOe7BQR6dk&amp;signed_in=true&amp;callback=initMap" async defer>
+    </script>
   </head>
   <body ng-app="starter" ng-controller="ListCtrl">
     <ion-header-bar class="top bar-positive"><!-- header-bar -->
@@ -28,6 +31,9 @@
     </ion-header-bar><!-- end of header-bar -->
 
     <ion-content>
+      <div>
+        <div id="map"></div>
+      </div>
       <ion-list>
         <ion-item ng-repeat="item in items">
           {{item.name}}

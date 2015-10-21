@@ -52,3 +52,9 @@ travel.controller('ListCtrl', function($scope, Items) {
   };
 
 });
+
+travel.controller('GeoCtrl', function($scope, $cordovaGeolocation) {
+
+
+
+});

@@ -4,3 +4,12 @@ body{
 .custom-button{
   margin-left: 4px;
 }
+#map{
+  height: 300px;
+  .gm-sm {
+    display: none !important;
+  }
+  .login-control{
+    display: none !important;
+  }
+}
