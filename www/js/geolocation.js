@@ -24,6 +24,7 @@ function initMap() {
     panControl: false,
     mapTypeControl: false,
     streetViewControl: false,
+    draggable: false
   });
 
   var geocoder = new google.maps.Geocoder;
