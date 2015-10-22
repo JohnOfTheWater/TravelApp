@@ -2,21 +2,20 @@ function getCity(geocoder, map, infoWindow, latlng) {
   geocoder.geocode({'location': latlng}, function(results, status) {
     if (status === google.maps.GeocoderStatus.OK) {
       if (results[1]) {
-        var cityName = results[1].address_components[0].long_name;
-        // infoWindow.setContent(results[1].formatted_address);
+        var cityName = results[3].address_components[1].long_name;
         infoWindow.setContent('you are in '+cityName);
-        // console.log(results[1].address_components[0].long_name);
         $('#earth-icon').attr('value', cityName);
         setTimeout(function(){
           infoWindow.close();
           // console.log(infoWindow);
         }, 2000);
-        // infowindow.open(map, marker);
       } else {
         window.alert('No results found');
+        $('#earth-icon').attr('value', 'Nashville');
       }
     } else {
       window.alert('Geocoder failed due to: ' + status);
+      $('#earth-icon').attr('value', 'Nashville');
     }
   });
 }
