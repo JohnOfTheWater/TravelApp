@@ -1,0 +1,17 @@
+.categories-header{
+	display: block;
+	text-transform: uppercase;
+	background-color: slategray;
+	color: white;
+}
+.category-wrapper{
+	// display: block;
+	display: none;
+	position: absolute;
+	top: 0;
+	background-color: whitesmoke;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 2;
+}

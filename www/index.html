@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="travel">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
@@ -17,36 +17,54 @@
 
     <script src="js/jquery.js"></script>
     <script src="js/velocity.min.js"></script>
+    <script src="js/velocity.ui.js"></script>
 
     <script src="js/firebase-web.js"></script>
     <script src="js/angularfire.js"></script>
 
-    <!-- your app's js -->
+    <!-- js files -->
     <script src="js/app.js"></script>
     <script src="js/geolocation.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMtvvvpS6EdDRhhcPa-gbRaoOe7BQR6dk&amp;signed_in=true&amp;callback=initMap" async defer>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMtvvvpS6EdDRhhcPa-gbRaoOe7BQR6dk&amp;callback=initMap" async defer>
     </script>
   </head>
-  <body ng-app="starter" ng-controller="ListCtrl">
+  <body ng-controller="MainCtrl">
     <ion-header-bar class="top bar-positive"><!-- header-bar -->
       <i class="ion-earth earth-custom" id="earth-icon" value=""></i>
       <h1 class="title">Travel App</h1>
-      <button class="button button-icon ion-plus" ng-click="addItem()"></button>
+      <button class="button button-icon ion-plus" ng-click="showCatModal()"></button>
     </ion-header-bar><!-- end of header-bar -->
 
     <ion-content>
-      <div>
-        <div id="map"></div>
-      </div>
-      <ion-list>
-        <ion-item ng-repeat="item in items">
-          {{item.name}}
-          <ion-option-button class="button-assertive" ng-click="deleteItem(item)">
-            <i class="icon ion-close-circled custom-button"></i>
-          </ion-option-button>
-        </ion-item>
-      </ion-list>
+    <div>
+      <div id="map"></div>
+    </div>
+    <!-- new category modal -->
+    <div class="custom-modal" ng-controller="addController">
+      <i class="icon ion-close-round custom-close-modal" ng-click="closeModal()"></i>
+      <input type="text" ng-model="catName" placeholder="insert new CATEGORY here"></input>
+      <div class="item button button-positive" ng-model="addButton" ng-disabled="!catName" ng-click="submitCategory()">add category</div>
+    </div>
+    <!-- end of modal -->
+    <ion-list>
+      <ion-item class='categories-header'>categories</ion-item>
+      <ion-item ng-repeat="item in items">
+        {{item.catName}}
+        <ion-option-button class="button-assertive" ng-click="deleteItem(item)">
+          <i class="icon ion-close-circled custom-button"></i>
+        </ion-option-button>
+        <!-- <i class="icon ion-chevron-right right-arrow" ng-click="showCategory(item)"></i> -->
+      </ion-item>
+    </ion-list>
+
+    <!-- category template -->
+    <div ng-include src="'/templates/category.html'" ng-controller="categoryController"></div>
+
     </ion-content>
+    <!-- <div ng-include="templates/test.html" ng-controller="testController">
+    </div> -->
+    
+    <!-- <ion-nav-view></ion-nav-view> -->
 
   </body>
 </html>

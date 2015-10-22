@@ -20,7 +20,11 @@ function getCity(geocoder, map, infoWindow, latlng) {
   });
 }
 
-
+// function initMap(){
+//   setTimeout(function(){
+//     initMapAfter
+//   },1000);
+// }
 
 function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {

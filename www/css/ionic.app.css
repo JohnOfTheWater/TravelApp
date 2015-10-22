@@ -9299,9 +9299,60 @@ body {
 .custom-button {
   margin-left: 4px; }
 
+.right-arrow {
+  color: red;
+  position: relative;
+  z-index: 20; }
+
+.custom-modal {
+  display: none;
+  content: "";
+  clear: both;
+  border: 1px solid grey;
+  position: absolute;
+  z-index: 20;
+  top: 100px;
+  background-color: whitesmoke;
+  left: 10%;
+  height: 170px;
+  right: 10%; }
+  .custom-modal .custom-close-modal {
+    display: block;
+    position: absolute;
+    top: 2px;
+    right: 3px;
+    font-size: 22px;
+    color: grey; }
+  .custom-modal input {
+    display: block;
+    width: 90%;
+    margin: 40px auto 20px;
+    outline: 1px solid grey;
+    padding: 0 10px; }
+  .custom-modal .button {
+    width: 90%;
+    margin: 0 auto;
+    display: block; }
+
 #map {
   height: 150px; }
   #map .gm-sm {
     display: none !important; }
   #map .login-control {
     display: none !important; }
+
+.categories-header {
+  display: block;
+  text-transform: uppercase;
+  background-color: slategray;
+  color: white; }
+
+.category-wrapper {
+  display: none;
+  position: absolute;
+  top: 0;
+  background-color: whitesmoke;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2; }
