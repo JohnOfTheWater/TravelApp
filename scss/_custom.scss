@@ -16,9 +16,10 @@ body{
 }
 
 .right-arrow{
-  color: red;
+  color: black;
   position: relative;
   z-index: 20;
+  float: right;
 }
 
 //modal
@@ -54,6 +55,17 @@ body{
     width: 90%;
     margin: 0 auto;
     display: block;
+  }
+}
+
+//back-bar
+.back-bar{
+  padding: 15px 40px;
+  text-transform: uppercase;
+  .left-arrow{
+    float: left;
+    position: relative;
+    right: 10px;
   }
 }
 

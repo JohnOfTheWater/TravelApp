@@ -9300,9 +9300,10 @@ body {
   margin-left: 4px; }
 
 .right-arrow {
-  color: red;
+  color: black;
   position: relative;
-  z-index: 20; }
+  z-index: 20;
+  float: right; }
 
 .custom-modal {
   display: none;
@@ -9333,6 +9334,14 @@ body {
     width: 90%;
     margin: 0 auto;
     display: block; }
+
+.back-bar {
+  padding: 15px 40px;
+  text-transform: uppercase; }
+  .back-bar .left-arrow {
+    float: left;
+    position: relative;
+    right: 10px; }
 
 #map {
   height: 150px; }

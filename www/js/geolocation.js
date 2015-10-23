@@ -1,8 +1,10 @@
 function getCity(geocoder, map, infoWindow, latlng) {
   geocoder.geocode({'location': latlng}, function(results, status) {
     if (status === google.maps.GeocoderStatus.OK) {
-      if (results[1]) {
-        var cityName = results[3].address_components[1].long_name;
+      if (results) {
+        // console.log(results);
+        var cityName = results[0].address_components[2].long_name;
+        // console.log(cityName);
         infoWindow.setContent('you are in '+cityName);
         $('#earth-icon').attr('value', cityName);
         setTimeout(function(){
