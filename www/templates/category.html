@@ -1,11 +1,17 @@
-<!-- <ion-view title="test"> -->
-<!-- <ion-content> -->
 <div class="category-wrapper">
+  <div class="custom-modal" data-id="newNote" ng-controller="categoryController">
+    <i class="icon ion-close-round custom-close-modal" ng-click="closeModal()"></i>
+    <input type="text" ng-model="noteName" placeholder="name...">
+    <div class="item button button-positive" ng-model="addButton" ng-disabled="!noteName" ng-click="newNote()">create note</div>
+  </div>
+
+  <!-- new note form -->
+
   <ion-item class="back-bar" ng-click="hideCategory()">back
-  <i class="icon ion-chevron-left left-arrow" ng-click=""></i>
-</ion-item>
-<ion-item class="categories-header">{{category}}</ion-item>
+    <i class="icon ion-chevron-left left-arrow" ng-click=""></i>
+  </ion-item>
+
+  <ion-item class="categories-header" id="category-header" value="{{catId}}">{{category}}</ion-item>
 
 </div>
-<!-- </ion-content> -->
 

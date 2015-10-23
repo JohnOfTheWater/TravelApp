@@ -33,7 +33,7 @@
     <ion-header-bar class="top bar-positive"><!-- header-bar -->
       <i class="ion-earth earth-custom" id="earth-icon" value=""></i>
       <h1 class="title">Travel App</h1>
-      <button class="button button-icon ion-plus" ng-click="showCatModal()"></button>
+      <button class="button button-icon ion-plus" ng-click="addStuff()"></button>
     </ion-header-bar><!-- end of header-bar -->
 
     <ion-content>
@@ -41,7 +41,7 @@
       <div id="map"></div>
     </div>
     <!-- new category modal -->
-    <div class="custom-modal" ng-controller="addController">
+    <div class="custom-modal" data-id="newCat" ng-controller="addController">
       <i class="icon ion-close-round custom-close-modal" ng-click="closeModal()"></i>
       <input type="text" ng-model="catName" placeholder="insert new CATEGORY here">
       <div class="item button button-positive" ng-model="addButton" ng-disabled="!catName" ng-click="submitCategory()">add category</div>
@@ -63,6 +63,7 @@
     <div ng-controller="includeCtrl">
       <div ng-include="" src="template.url"></div>
     </div>
+
     </ion-content>
 
 
