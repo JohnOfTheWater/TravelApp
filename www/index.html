@@ -42,12 +42,12 @@
     <!-- new category modal -->
     <div class="custom-modal" ng-controller="addController">
       <i class="icon ion-close-round custom-close-modal" ng-click="closeModal()"></i>
-      <input type="text" ng-model="catName" placeholder="insert new CATEGORY here"></input>
+      <input type="text" ng-model="catName" placeholder="insert new CATEGORY here">
       <div class="item button button-positive" ng-model="addButton" ng-disabled="!catName" ng-click="submitCategory()">add category</div>
     </div>
     <!-- end of modal -->
     <ion-list>
-      <ion-item class='categories-header'>categories</ion-item>
+      <ion-item class="categories-header">categories</ion-item>
       <ion-item ng-repeat="item in items">
         {{item.catName}}
         <ion-option-button class="button-assertive" ng-click="deleteItem(item)">
@@ -58,7 +58,7 @@
     </ion-list>
 
     <!-- category template -->
-    <div ng-include src="'/templates/category.html'" ng-controller="categoryController"></div>
+    <div ng-include="" src="&apos;/templates/category.html&apos;" ng-controller="categoryController"></div>
 
     </ion-content>
     <!-- <div ng-include="templates/test.html" ng-controller="testController">
