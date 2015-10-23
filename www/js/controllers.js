@@ -21,6 +21,7 @@ travel.controller('MainCtrl', function($scope, Items) {
   $scope.showCategory = function(item){
       console.log(item);
       $scope.category = item.catName;
+      // alert('clicked');
       $('.category-wrapper').velocity('transition.slideRightIn',{duration:300});
   };
   $scope.hideCategory = function(item){
@@ -56,4 +57,14 @@ travel.controller("categoryController", function($scope, $stateParams) {
     // console.log('finally!');
 
 
+});
+
+travel.controller('includeCtrl', function($scope){
+   $scope.templates = [
+   {
+     template: { url: 'templates/category.html' }
+   }
+   ];
+
+   $scope.template = $scope.templates[0].template;
 });

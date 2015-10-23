@@ -9296,14 +9296,17 @@ body {
   font-size: 33px;
   margin-left: 5px; }
 
+.title {
+  text-transform: uppercase; }
+
 .custom-button {
   margin-left: 4px; }
 
 .right-arrow {
   color: black;
-  position: relative;
-  z-index: 20;
-  float: right; }
+  position: absolute;
+  right: 50px;
+  top: 2px; }
 
 .custom-modal {
   display: none;
@@ -9364,4 +9367,4 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 2; }
+  z-index: 20; }
