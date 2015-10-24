@@ -21,17 +21,11 @@ travel.factory('Categories', ['$firebaseArray', function($firebaseArray){
 travel.factory('Notes', ['$firebaseArray', function($firebaseArray){
   return function(catId){
     var itemsRef = new Firebase('https://radiant-torch-278.firebaseio.com');
-    // var category = $('#category-header').attr('value');
     var notesRef = itemsRef.child(catId);
     // console.log(itemsRef);
     return $firebaseArray(notesRef);
   }
 }]);
-
-// travel.factory('Notes', ['$firebaseArray', function($firebaseArray){
-//   var notesRef = new Firebase('https://radiant-torch-278.firebaseio.com');
-//   return $firebaseArray(itemsRef);
-// }]);
 
 
 //routing

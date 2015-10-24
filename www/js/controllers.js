@@ -1,6 +1,7 @@
-travel.controller('MainCtrl', function($scope, Categories) {
+travel.controller('MainCtrl', function($scope, Categories, Notes) {
 
   $scope.items = Categories;
+  console.log($scope.items);
 
   Categories.$loaded(function(){
     // console.log('categories loaded from database!');
@@ -36,6 +37,7 @@ travel.controller('MainCtrl', function($scope, Categories) {
       console.log(item);
       $scope.category = item.catName;
       $scope.catId = item.$id;
+      $scope.notes = Notes(item.$id);
       // alert('clicked');
       $('.category-wrapper')
         .velocity('transition.slideRightIn',{duration:300})
@@ -67,26 +69,52 @@ travel.controller('addController', function($scope, $firebaseArray, $state, Cate
 
 });
 
-travel.controller("categoryController", function($scope, $stateParams, $firebaseArray, Categories, Notes) {
+// travel.controller("categoryController", function($scope, $stateParams, $state, $firebaseArray, Categories, Notes) {
 
-  function closeModal(){
-    $('.custom-modal[data-id="newNote"]').velocity('transition.slideUpOut',{duration:300});
+//   function closeModal(){
+//     $('.custom-modal[data-id="newNote"]').velocity('transition.slideUpOut',{duration:300});
+//   }
+
+//   $scope.newNote = function(){
+//     console.log('miao');
+//     var catId = $('#category-header').attr('value');
+//     $scope.newNote = Notes(catId);
+//     $scope.newNote.$add({
+//       noteTitle: $scope.noteName,
+//       noteCat: catId
+//     }).then(function(){//when it's done
+//       closeModal();
+//     });
+//   };
+
+
+// });
+
+travel.controller("categoryController", ["$scope", "Notes",
+  function($scope, Notes) {
+
+    function closeModal(){
+      $('.custom-modal[data-id="newNote"]').velocity('transition.slideUpOut',{duration:300});
+    }
+    
+
+    $scope.newNote = function() {
+      var catId = $('#category-header').attr('value');
+      console.log(catId);
+      $scope.note = Notes(catId);
+      $scope.note.$add({
+        noteTitle: $scope.noteTitle,
+        noteCat: catId
+      }).then(function() {//when it's done
+        // alert('Profile saved!');
+        closeModal();
+      }).catch(function(error) {
+        console.log(error);
+        alert('Error!');
+      });
+    };
   }
-
-  $scope.newNote = function(){
-    console.log('miao');
-    var catId = $('#category-header').attr('value');
-    $scope.newNote = Notes(catId);
-    $scope.newNote.$add({
-      noteTitle: $scope.noteName,
-      noteCat: catId
-    }).then(function(){//when it's done
-      closeModal();
-    });
-  };
-
-
-});
+]);
 
 travel.controller('includeCtrl', function($scope){
    $scope.templates = [
