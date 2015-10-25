@@ -1,3 +1,8 @@
+.category-list{
+	ion-item:last-child{
+		display: none;
+	}
+}
 .categories-header{
 	display: block;
 	text-transform: uppercase;

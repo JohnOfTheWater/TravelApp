@@ -1,9 +1,11 @@
-travel.controller('MainCtrl', function($scope, Categories, Notes) {
+travel.controller('MainCtrl', function($scope, Cities, Categories, Notes) {
 
-  $scope.items = Categories;
-  console.log($scope.items);
+  // $scope.items = Categories;
+  $scope.cities = Cities;
+  console.log($scope.cities);
 
-  Categories.$loaded(function(){
+  Cities.$loaded(function(){
+    $scope.items = Categories("-K1UmnFI9u6XP2keG000");
     // console.log('categories loaded from database!');
   });
 
@@ -52,9 +54,9 @@ travel.controller('MainCtrl', function($scope, Categories, Notes) {
 });
 
 
-travel.controller('addController', function($scope, $firebaseArray, $state, Categories){
-  function closeModal(){
-    $('.custom-modal[data-id="newCat"]').velocity('transition.slideUpOut',{duration:300});
+travel.controller('addController', function($scope, $firebaseArray, $state, Cities, Categories){
+  function closeModal(id){
+    $('.custom-modal[data-id="'+id+'"]').velocity('transition.slideUpOut',{duration:300});
   }
 
   $scope.submitCategory = function(){
@@ -62,7 +64,18 @@ travel.controller('addController', function($scope, $firebaseArray, $state, Cate
     $scope.newCat.$add({
       catName: $scope.catName
     }).then(function(){//when it's done
-      closeModal();
+    var id = 'newCat';
+      closeModal(id);
+    });
+  };
+
+  $scope.submitCity = function(){
+    $scope.newCity = Cities;
+    $scope.newCity.$add({
+      cityName: $scope.cityName
+    }).then(function(){//when it's done
+    var id = 'newCity';
+      closeModal(id);
     });
   };
 
@@ -90,12 +103,28 @@ travel.controller('addController', function($scope, $firebaseArray, $state, Cate
 
 // });
 
-travel.controller("categoryController", ["$scope", "Notes",
-  function($scope, Notes) {
+travel.controller("categoryController", ["$scope", "Notes", "Cities", "Categories",
+  function($scope, Notes, Cities, Categories) {
 
-    function closeModal(){
-      $('.custom-modal[data-id="newNote"]').velocity('transition.slideUpOut',{duration:300});
+    function closeModal(id){
+      $('.custom-modal[data-id="'+id+'"]').velocity('transition.slideUpOut',{duration:300});
     }
+
+    $scope.newCategory = function() {
+      var cityId = $('#earth-icon').attr('value');//Nashville
+      $scope.cat = Categories(cityId);
+      $scope.cat.$add({
+        catName: $scope.catName,
+        catCity: cityId
+      }).then(function() {//when it's done
+        // alert('Profile saved!');
+        var id = 'newCat';
+        closeModal(id);
+      }).catch(function(error) {
+        console.log(error);
+        alert('Error!');
+      });
+    };
     
 
     $scope.newNote = function() {
@@ -107,7 +136,8 @@ travel.controller("categoryController", ["$scope", "Notes",
         noteCat: catId
       }).then(function() {//when it's done
         // alert('Profile saved!');
-        closeModal();
+        var id = 'newNote';
+        closeModal(id);
       }).catch(function(error) {
         console.log(error);
         alert('Error!');

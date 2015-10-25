@@ -40,14 +40,20 @@
     <div>
       <div id="map"></div>
     </div>
+    <!-- new city modal -->
+    <div class="custom-modal test-modal" data-id="newCity" ng-controller="addController">
+      <i class="icon ion-close-round custom-close-modal" ng-click="closeModal()"></i>
+      <input type="text" ng-model="cityName" placeholder="insert new CITY here">
+      <div class="item button button-positive" ng-model="addButton" ng-disabled="!cityName" ng-click="submitCity()">add category</div>
+    </div>
     <!-- new category modal -->
-    <div class="custom-modal" data-id="newCat" ng-controller="addController">
+    <div class="custom-modal" data-id="newCat" ng-controller="categoryController">
       <i class="icon ion-close-round custom-close-modal" ng-click="closeModal()"></i>
       <input type="text" ng-model="catName" placeholder="insert new CATEGORY here">
-      <div class="item button button-positive" ng-model="addButton" ng-disabled="!catName" ng-click="submitCategory()">add category</div>
+      <div class="item button button-positive" ng-model="addButton" ng-disabled="!catName" ng-click="newCategory()">add category</div>
     </div>
     <!-- end of modal -->
-    <ion-list>
+    <ion-list class='category-list'>
       <ion-item class="categories-header">categories</ion-item>
       <ion-item ng-repeat="item in items">
         {{item.catName}}

@@ -9338,6 +9338,9 @@ body {
     margin: 0 auto;
     display: block; }
 
+.test-modal {
+  display: none; }
+
 .back-bar {
   padding: 15px 40px;
   text-transform: uppercase; }
@@ -9352,6 +9355,9 @@ body {
     display: none !important; }
   #map .login-control {
     display: none !important; }
+
+.category-list ion-item:last-child {
+  display: none; }
 
 .categories-header {
   display: block;

@@ -12,16 +12,32 @@ travel.run(function($ionicPlatform) {
 });
 
 //factory
-travel.factory('Categories', ['$firebaseArray', function($firebaseArray){
-  var itemsRef = new Firebase('https://radiant-torch-278.firebaseio.com');
+travel.factory('Cities', ['$firebaseArray', function($firebaseArray){
+  var citiesRef = new Firebase('https://radiant-torch-278.firebaseio.com');
   // console.log(itemsRef);
-  return $firebaseArray(itemsRef);
+  return $firebaseArray(citiesRef);
+}]);
+
+// travel.factory('Categories', ['$firebaseArray', function($firebaseArray){
+//   var itemsRef = new Firebase('https://radiant-torch-278.firebaseio.com');
+//   // console.log(itemsRef);
+//   return $firebaseArray(itemsRef);
+// }]);
+
+travel.factory('Categories', ['$firebaseArray', function($firebaseArray){
+  return function(cityId){
+    var citiesRef = new Firebase('https://radiant-torch-278.firebaseio.com');
+    var catsRef = citiesRef.child(cityId);
+    // console.log(itemsRef);
+    return $firebaseArray(catsRef);
+  }
 }]);
 
 travel.factory('Notes', ['$firebaseArray', function($firebaseArray){
-  return function(catId){
-    var itemsRef = new Firebase('https://radiant-torch-278.firebaseio.com');
-    var notesRef = itemsRef.child(catId);
+  return function(cityId, catId){
+    var citiesRef = new Firebase('https://radiant-torch-278.firebaseio.com');
+    // var catsRef = citiesRef.child(catId);
+    var notesRef = citiesRef.child(cityId).child(catId);
     // console.log(itemsRef);
     return $firebaseArray(notesRef);
   }
