@@ -5,7 +5,17 @@ travel.controller('MainCtrl', function($scope, Categories, Cities, Notes) {
   console.log($scope.items);
 
   Categories.$loaded(function(){
-    // console.log('categories loaded from database!');
+    console.log('categories loaded from database!');
+  });
+  Cities.$loaded(function(){
+    console.log('cities loaded from database!');
+    // console.log(Cities.orderByChild("selected").equalTo('yes'));
+    for (var i = 0; i < Cities.length; i++) {
+      if(Cities[i].selected === 'yes'){
+        $('#earth-icon').attr('value', Cities[i].cityName);//dinamic
+        $('ion-header-bar .title').text(Cities[i].cityName);//dinamic
+      }
+    }
   });
 
   $scope.addStuff = function(){
@@ -73,6 +83,30 @@ travel.controller('MainCtrl', function($scope, Categories, Cities, Notes) {
         .addClass('opened');
   };
 
+  function saveSelectedCity(city){
+    console.log(city);
+    // angular.forEach(Cities, function(value, key) {
+    //   console.log(key, value);
+    // });
+    for (var i = 0; i < Cities.length; i++) {
+      var selected = (Cities[i].cityName != city.cityName ? "no" : "yes");
+      Cities[i].selected = selected;
+      Cities.$save(i).then(function(){
+        console.log('city modified');
+      })
+    }
+  }
+
+  $scope.selectCity = function(city){
+    $('.cities-wrapper .city-item').removeClass('selected');
+    $('.cities-wrapper .city-item[value="'+city.cityName+'"]').addClass('selected');
+    //change the header text to show the selected city...
+    $('#earth-icon').attr('value', city.cityName);
+    $('ion-header-bar .title').text(city.cityName);
+    //...then persist the changes to the database
+    saveSelectedCity(city);
+  };
+
 });
 
 
@@ -83,7 +117,8 @@ travel.controller('addController', function($scope, $firebaseArray, $state, Cate
 
   $scope.submitCity = function(){
     Cities.$add({
-      cityName: $scope.cityName
+      cityName: $scope.cityName,
+      selected: 'no'
     }).then(function(){//when it's done
       var id = "newCity";
       closeModal(id);
@@ -133,13 +168,14 @@ travel.controller("categoryController", ["$scope", "Notes",
 
 
     $scope.newNote = function() {
-      var catId = $('#category-header').attr('value');
+      var catId = $('#category-header').attr('value'),
+          cityId = $('.cities-wrapper .selected').attr('value');
       console.log(catId);
       $scope.note = Notes(catId);
       $scope.note.$add({
         noteTitle: $scope.noteTitle,
         noteCat: catId,
-        cityId: 'Nashville'
+        cityId: cityId
       }).then(function() {//when it's done
         // alert('Profile saved!');
         closeModal();

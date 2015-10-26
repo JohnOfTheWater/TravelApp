@@ -8,6 +8,7 @@ var travel = angular.module('travel', ['ionic','firebase']);
 travel.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // console.log('ready');
+    // $('.city-item[value="Nashville"]').addClass('selected');
   });
 });
 

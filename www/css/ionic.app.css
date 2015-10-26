@@ -9393,3 +9393,5 @@ body {
   z-index: 20; }
   .cities-wrapper .back-bar {
     padding: 15px 40px 15px 300px; }
+  .cities-wrapper .selected {
+    text-decoration: underline; }

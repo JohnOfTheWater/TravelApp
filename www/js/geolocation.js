@@ -6,8 +6,8 @@ function getCity(geocoder, map, infoWindow, latlng) {
         var cityName = results[0].address_components[2].long_name;
         // console.log(cityName);
         infoWindow.setContent('you are in '+cityName);
-        $('#earth-icon').attr('value', cityName);
-        $('ion-header-bar .title').text(cityName);
+        // $('#earth-icon').attr('value', cityName);//dinamic
+        // $('ion-header-bar .title').text(cityName);//dinamic
         setTimeout(function(){
           infoWindow.close();
           // console.log(infoWindow);
