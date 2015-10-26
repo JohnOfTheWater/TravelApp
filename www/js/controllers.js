@@ -1,8 +1,8 @@
-travel.controller('MainCtrl', function($scope, Categories, Cities, Notes) {
+travel.controller('MainCtrl', function($scope, Categories, Cities, Notes, CityNotes) {
 
   $scope.items = Categories;
   $scope.cities = Cities;
-  console.log($scope.items);
+  // console.log($scope.items);
 
   Categories.$loaded(function(){
     console.log('categories loaded from database!');
@@ -57,14 +57,15 @@ travel.controller('MainCtrl', function($scope, Categories, Cities, Notes) {
       });
   };
   $scope.showCategory = function(item){
-      console.log(item);
-      $scope.category = item.catName;
-      $scope.catId = item.$id;
-      $scope.notes = Notes(item.$id);
-      // alert('clicked');
-      $('.category-wrapper')
-        .velocity('transition.slideRightIn',{duration:300})
-        .addClass('opened');
+    // console.log(item);
+    $scope.category = item.catName;
+    var cityId = $('#earth-icon').attr('value');
+    $scope.catId = item.$id;
+    $scope.notes = CityNotes(item.$id, cityId);
+    // alert('clicked');
+    $('.category-wrapper')
+      .velocity('transition.slideRightIn',{duration:300})
+      .addClass('opened');
   };
   $scope.hideTab = function(){
     if($('.category-wrapper').hasClass('opened')){//category-wrapper is open
@@ -191,7 +192,8 @@ travel.controller('includeCtrl', function($scope){
    $scope.templates = [
    {
      template: { url: 'templates/category.html',
-                 cities: 'templates/cities.html' }
+                 cities: 'templates/cities.html',
+                 note: 'templates/note.html' }
    }
    ];
 

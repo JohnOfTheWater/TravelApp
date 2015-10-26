@@ -34,6 +34,14 @@ travel.factory('Notes', ['$firebaseArray', function($firebaseArray){
   }
 }]);
 
+travel.factory('CityNotes', ['$firebaseArray', function($firebaseArray){
+  return function(catId, cityName){
+    var itemsRef = new Firebase('https://radiant-torch-278.firebaseio.com/categories/'+catId);
+    var notesRef = itemsRef.orderByChild("cityId").equalTo(cityName);
+    return $firebaseArray(notesRef);
+  }
+}]);
+
 
 //routing
 travel.config(function($stateProvider, $urlRouterProvider) {
