@@ -2,12 +2,14 @@
 
 	<!-- new note form -->
 	<div class="custom-modal" data-id="newNote" ng-controller="categoryController">
+    <div class="content">
 	  <i class="icon ion-close-round custom-close-modal" ng-click="closeModal()"></i>
     <div class="modal-header">
       <h3><i class="icon ion-compose"></i>new note</h3>
     </div>
 	  <input type="text" ng-model="noteTitle" placeholder="note title...">
 	  <div class="item button button-positive" ng-model="addButton" ng-disabled="!noteTitle" ng-click="newNote()">create note</div>
+    </div>
 	</div>
 
 	<ion-item class="back-bar" ng-click="hideTab()">back

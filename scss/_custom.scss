@@ -34,17 +34,25 @@ body{
 //modal
 .custom-modal{
   display: none;
-  content: "";
   // display: block;
-  clear: both;
-  border: 1px solid grey;
-  position: absolute;
-  z-index: 21;
-  top: 100px;
-  background-color: whitesmoke;
-  left: 10%;
-  height: 210px;
-  right: 10%;
+  overflow: auto;
+    position: fixed;
+    z-index: 5;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(165, 165, 165, 0.9);
+  .content{
+    border: 1px solid grey;
+    position: absolute;
+    z-index: 21;
+    top: 100px;
+    background-color: whitesmoke;
+    left: 10%;
+    height: 210px;
+    right: 10%;
+  }
   .custom-close-modal{
     display: block;
     position: absolute;
@@ -57,7 +65,7 @@ body{
     @extend .cf;
     display: block;
     margin: 25px auto 0;
-    width: 70%;
+    width: 100%;
     text-align: center;
     text-transform: uppercase;
     h3{
