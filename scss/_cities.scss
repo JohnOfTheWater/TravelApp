@@ -1,0 +1,14 @@
+.cities-wrapper{
+  // display: block;
+  display: none;
+  position: absolute;
+  top: 0;
+  background-color: whitesmoke;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  .back-bar{
+    padding: 15px 40px 15px 300px;
+  }
+}

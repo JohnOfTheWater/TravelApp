@@ -9,8 +9,10 @@ travel.controller('MainCtrl', function($scope, Categories, Cities, Notes) {
   });
 
   $scope.addStuff = function(){
-    if($('.category-wrapper').hasClass('opened')){
+    if($('.category-wrapper').hasClass('opened')){//show new category modal
       var form = $('.custom-modal[data-id="newNote"]');
+    }else if($('.cities-wrapper').hasClass('opened')){//show new city modal
+      var form = $('.custom-modal[data-id="newCity"]');
     }else{//show new category modal in home page
       var form = $('.custom-modal[data-id="newCat"]');
     }
@@ -18,9 +20,11 @@ travel.controller('MainCtrl', function($scope, Categories, Cities, Notes) {
   };
 
   $scope.closeModal = function(){
-    if($('.category-wrapper').hasClass('opened')){
+    if($('.category-wrapper').hasClass('opened')){//hide new category modal
       var form = $('.custom-modal[data-id="newNote"]');
-    }else{//show new category modal in home page
+    }else if($('.cities-wrapper').hasClass('opened')){//hide new city modal
+      var form = $('.custom-modal[data-id="newCity"]');
+    }else{//hide new category modal in home page
       var form = $('.custom-modal[data-id="newCat"]');
     }
     form.velocity('transition.slideUpOut',{duration:300});
@@ -44,10 +48,21 @@ travel.controller('MainCtrl', function($scope, Categories, Cities, Notes) {
         .velocity('transition.slideRightIn',{duration:300})
         .addClass('opened');
   };
-  $scope.hideCategory = function(item){
-      $('.category-wrapper')
-        .velocity('transition.slideRightOut',{duration:300})
-        .removeClass('opened');
+  $scope.hideTab = function(){
+    if($('.category-wrapper').hasClass('opened')){//category-wrapper is open
+      var tab = $('.category-wrapper'),
+          direction = 'transition.slideRightOut';
+    }else{//cities-wrapper is open
+      var tab = $('.cities-wrapper'),
+          direction = 'transition.slideLeftOut';
+    }
+    tab.velocity(direction, {duration:300})
+       .removeClass('opened');
+  };
+  $scope.showCities = function(){
+      $('.cities-wrapper')
+        .velocity('transition.slideLeftIn',{duration:300})
+        .addClass('opened');
   };
 
 });
@@ -107,7 +122,7 @@ travel.controller("categoryController", ["$scope", "Notes",
     function closeModal(){
       $('.custom-modal[data-id="newNote"]').velocity('transition.slideUpOut',{duration:300});
     }
-    
+
 
     $scope.newNote = function() {
       var catId = $('#category-header').attr('value');
@@ -131,7 +146,8 @@ travel.controller("categoryController", ["$scope", "Notes",
 travel.controller('includeCtrl', function($scope){
    $scope.templates = [
    {
-     template: { url: 'templates/category.html' }
+     template: { url: 'templates/category.html',
+                 cities: 'templates/cities.html' }
    }
    ];
 

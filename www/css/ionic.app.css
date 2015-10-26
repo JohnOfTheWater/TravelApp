@@ -9302,11 +9302,16 @@ body {
 .custom-button {
   margin-left: 4px; }
 
-.right-arrow {
+.right-arrow-button,
+.custom-location {
   color: black;
   position: absolute;
   right: 25px;
-  top: 2px; }
+  top: 2px;
+  font-size: 20px; }
+
+.custom-location {
+  font-size: 25px; }
 
 .custom-modal {
   display: none;
@@ -9339,15 +9344,18 @@ body {
     display: block; }
 
 .city-modal {
-  display: block; }
+  display: none; }
 
 .back-bar {
   padding: 15px 40px;
   text-transform: uppercase; }
-  .back-bar .left-arrow {
+  .back-bar .left-arrow,
+  .back-bar .right-arrow {
     float: left;
     position: relative;
     right: 10px; }
+  .back-bar .right-arrow {
+    float: right; }
 
 #map {
   height: 150px; }
@@ -9373,3 +9381,15 @@ body {
   z-index: 20; }
   .category-wrapper .category-list ion-item:last-child {
     display: none; }
+
+.cities-wrapper {
+  display: none;
+  position: absolute;
+  top: 0;
+  background-color: whitesmoke;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 20; }
+  .cities-wrapper .back-bar {
+    padding: 15px 40px 15px 300px; }

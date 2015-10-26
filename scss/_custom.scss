@@ -18,14 +18,17 @@ body{
   margin-left: 4px;
 }
 
-.right-arrow{
+//icons
+.right-arrow-button,
+.custom-location{
   color: black;
-  // position: relative;
-  // z-index: 20;
-  // float: right;
   position: absolute;
-    right: 25px;
-    top: 2px;
+  right: 25px;
+  top: 2px;
+  font-size: 20px;
+}
+.custom-location{
+  font-size: 25px;
 }
 
 //modal
@@ -64,17 +67,21 @@ body{
   }
 }
 .city-modal{
-  display: block;
+  display: none;
 }
 
 //back-bar
 .back-bar{
   padding: 15px 40px;
   text-transform: uppercase;
-  .left-arrow{
+  .left-arrow,
+  .right-arrow{
     float: left;
     position: relative;
     right: 10px;
+  }
+  .right-arrow{
+    float: right;
   }
 }
 
