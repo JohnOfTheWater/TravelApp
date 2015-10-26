@@ -1,6 +1,7 @@
-travel.controller('MainCtrl', function($scope, Categories, Notes) {
+travel.controller('MainCtrl', function($scope, Categories, Cities, Notes) {
 
   $scope.items = Categories;
+  $scope.cities = Cities;
   console.log($scope.items);
 
   Categories.$loaded(function(){
@@ -52,17 +53,27 @@ travel.controller('MainCtrl', function($scope, Categories, Notes) {
 });
 
 
-travel.controller('addController', function($scope, $firebaseArray, $state, Categories){
-  function closeModal(){
-    $('.custom-modal[data-id="newCat"]').velocity('transition.slideUpOut',{duration:300});
+travel.controller('addController', function($scope, $firebaseArray, $state, Categories, Cities){
+  function closeModal(id){
+    $('.custom-modal[data-id="'+id+'"]').velocity('transition.slideUpOut',{duration:300});
   }
+
+  $scope.submitCity = function(){
+    Cities.$add({
+      cityName: $scope.cityName
+    }).then(function(){//when it's done
+      var id = "newCity";
+      closeModal(id);
+    });
+  };
 
   $scope.submitCategory = function(){
     $scope.newCat = Categories;
     $scope.newCat.$add({
       catName: $scope.catName
     }).then(function(){//when it's done
-      closeModal();
+      var id = "newCat";
+      closeModal(id);
     });
   };
 
@@ -104,7 +115,8 @@ travel.controller("categoryController", ["$scope", "Notes",
       $scope.note = Notes(catId);
       $scope.note.$add({
         noteTitle: $scope.noteTitle,
-        noteCat: catId
+        noteCat: catId,
+        cityId: 'Nashville'
       }).then(function() {//when it's done
         // alert('Profile saved!');
         closeModal();

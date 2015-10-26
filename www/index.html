@@ -40,6 +40,12 @@
     <div>
       <div id="map"></div>
     </div>
+    <!-- new city modal -->
+    <div class="custom-modal city-modal" data-id="newCity" ng-controller="addController">
+      <i class="icon ion-close-round custom-close-modal" ng-click="closeModal()"></i>
+      <input type="text" ng-model="cityName" placeholder="insert new CITY here">
+      <div class="item button button-positive" ng-model="addButton" ng-disabled="!cityName" ng-click="submitCity()">add city</div>
+    </div>
     <!-- new category modal -->
     <div class="custom-modal" data-id="newCat" ng-controller="addController">
       <i class="icon ion-close-round custom-close-modal" ng-click="closeModal()"></i>
@@ -75,6 +81,18 @@
       <div ng-include="" src="template.url"></div>
     </div>
 
+    <div class="list custom-dropdown">
+    <label class="item item-input item-select">
+      <div class="input-label">
+        City
+      </div>
+      <select>
+        <option ng-repeat="city in cities">
+          {{city.cityName}}
+        </option>
+      </select>
+    </label>
+    </div><!-- end of list -->
     </ion-content>
 
 

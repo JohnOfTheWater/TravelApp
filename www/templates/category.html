@@ -1,20 +1,22 @@
 <div class="category-wrapper">
 
-  <!-- new note form -->
-  <div class="custom-modal" data-id="newNote" ng-controller="categoryController">
-      <i class="icon ion-close-round custom-close-modal" ng-click="closeModal()"></i>
-      <input type="text" ng-model="noteTitle" placeholder="note title...">
-      <div class="item button button-positive" ng-model="addButton" ng-disabled="!noteTitle" ng-click="newNote()">create note</div>
-  </div>
+	<!-- new note form -->
+	<div class="custom-modal" data-id="newNote" ng-controller="categoryController">
+	  <i class="icon ion-close-round custom-close-modal" ng-click="closeModal()"></i>
+	  <input type="text" ng-model="noteTitle" placeholder="note title...">
+	  <div class="item button button-positive" ng-model="addButton" ng-disabled="!noteTitle" ng-click="newNote()">create note</div>
+	</div>
 
-  <ion-item class="back-bar" ng-click="hideCategory()">back
-    <i class="icon ion-chevron-left left-arrow" ng-click=""></i>
-  </ion-item>
+	<ion-item class="back-bar" ng-click="hideCategory()">back
+	<i class="icon ion-chevron-left left-arrow" ng-click=""></i>
+	</ion-item>
 
-  <ion-item class="categories-header" id="category-header" value="{{catId}}">{{category}}</ion-item>
-  <ion-item ng-repeat="note in notes">
-    {{note.noteTitle}}
-  </ion-item>
+	<ion-item class="categories-header" id="category-header" value="{{catId}}">{{category}}</ion-item>
+	<div class='category-list'>
+	<ion-item ng-repeat="note in notes">
+	{{note.noteTitle}}
+	</ion-item>
+	</div>
 
 </div>
 

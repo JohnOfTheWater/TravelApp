@@ -12,15 +12,21 @@ travel.run(function($ionicPlatform) {
 });
 
 //factory
+travel.factory('Cities', ['$firebaseArray', function($firebaseArray){
+  var citiesRef = new Firebase('https://radiant-torch-278.firebaseio.com/cities');
+  // console.log(itemsRef);
+  return $firebaseArray(citiesRef);
+}]);
+
 travel.factory('Categories', ['$firebaseArray', function($firebaseArray){
-  var itemsRef = new Firebase('https://radiant-torch-278.firebaseio.com');
+  var itemsRef = new Firebase('https://radiant-torch-278.firebaseio.com/categories');
   // console.log(itemsRef);
   return $firebaseArray(itemsRef);
 }]);
 
 travel.factory('Notes', ['$firebaseArray', function($firebaseArray){
   return function(catId){
-    var itemsRef = new Firebase('https://radiant-torch-278.firebaseio.com');
+    var itemsRef = new Firebase('https://radiant-torch-278.firebaseio.com/categories');
     var notesRef = itemsRef.child(catId);
     // console.log(itemsRef);
     return $firebaseArray(notesRef);

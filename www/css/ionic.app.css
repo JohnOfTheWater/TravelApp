@@ -9338,6 +9338,9 @@ body {
     margin: 0 auto;
     display: block; }
 
+.city-modal {
+  display: block; }
+
 .back-bar {
   padding: 15px 40px;
   text-transform: uppercase; }
@@ -9368,3 +9371,5 @@ body {
   left: 0;
   right: 0;
   z-index: 20; }
+  .category-wrapper .category-list ion-item:last-child {
+    display: none; }

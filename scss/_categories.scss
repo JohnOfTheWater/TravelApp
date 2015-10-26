@@ -14,4 +14,9 @@
 	left: 0;
 	right: 0;
 	z-index: 20;
+	.category-list{
+		ion-item:last-child{
+			display: none;
+		}
+	}
 }
