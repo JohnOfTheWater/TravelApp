@@ -32,10 +32,18 @@ travel.controller('MainCtrl', function($scope, Categories, Cities, Notes) {
 
   $scope.deleteItem = function(item){
     // console.log(item.$id);
-    $scope.items
-      .$remove(item)
-      .then(function(){
-        alert('category deleted!')
+    if($('.category-wrapper').hasClass('opened')){
+      // var catId = $('#category-header').attr('value');
+      // $scope.notes = Notes(catId);//don't need it cause scope is defined already at this point
+      var pool = $scope.notes;
+    }else if($('.cities-wrapper').hasClass('opened')){
+      var pool = $scope.cities;
+    }else{
+      var pool = $scope.items;
+    }
+    pool.$remove(item)
+        .then(function(){
+           console.log('item deleted!');
       });
   };
   $scope.showCategory = function(item){
