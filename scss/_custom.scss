@@ -43,20 +43,36 @@ body{
   top: 100px;
   background-color: whitesmoke;
   left: 10%;
-  height: 170px;
+  height: 210px;
   right: 10%;
   .custom-close-modal{
     display: block;
     position: absolute;
     top: 2px;
-    right: 3px;
-    font-size: 22px;
-    color: grey;
+    right: 5px;
+    font-size: 25px;
+    color: black;
+  }
+  .modal-header{
+    @extend .cf;
+    display: block;
+    margin: 25px auto 0;
+    width: 70%;
+    text-align: center;
+    text-transform: uppercase;
+    h3{
+      margin: 0;
+      font-size: 20px;
+    }
+    i{
+      margin-right: 5px;
+      font-size: 25px;
+    }
   }
   input{
     display: block;
     width: 90%;
-    margin: 40px auto 20px;
+    margin: 25px auto 20px;
     outline: 1px solid grey;
     padding: 0 10px;
   }

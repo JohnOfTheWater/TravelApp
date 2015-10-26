@@ -3,6 +3,9 @@
 <!-- new city modal -->
 <div class="custom-modal city-modal" data-id="newCity" ng-controller="addController">
   <i class="icon ion-close-round custom-close-modal" ng-click="closeModal()"></i>
+  <div class="modal-header">
+    <h3><i class="icon ion-earth"></i>new city</h3>
+  </div>
   <input type="text" ng-model="cityName" placeholder="insert new CITY here">
   <div class="item button button-positive" ng-model="addButton" ng-disabled="!cityName" ng-click="submitCity()">add city</div>
 </div>

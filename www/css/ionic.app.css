@@ -9287,6 +9287,11 @@ a.button {
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
 
+.cf:after, .custom-modal .modal-header:after {
+  content: "";
+  display: table;
+  clear: both; }
+
 body {
   background-color: whitesmoke; }
 
@@ -9323,19 +9328,31 @@ body {
   top: 100px;
   background-color: whitesmoke;
   left: 10%;
-  height: 170px;
+  height: 210px;
   right: 10%; }
   .custom-modal .custom-close-modal {
     display: block;
     position: absolute;
     top: 2px;
-    right: 3px;
-    font-size: 22px;
-    color: grey; }
+    right: 5px;
+    font-size: 25px;
+    color: black; }
+  .custom-modal .modal-header {
+    display: block;
+    margin: 25px auto 0;
+    width: 70%;
+    text-align: center;
+    text-transform: uppercase; }
+    .custom-modal .modal-header h3 {
+      margin: 0;
+      font-size: 20px; }
+    .custom-modal .modal-header i {
+      margin-right: 5px;
+      font-size: 25px; }
   .custom-modal input {
     display: block;
     width: 90%;
-    margin: 40px auto 20px;
+    margin: 25px auto 20px;
     outline: 1px solid grey;
     padding: 0 10px; }
   .custom-modal .button {
