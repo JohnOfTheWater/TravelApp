@@ -1,14 +1,14 @@
-<div class="category-wrapper">
+<div class="category-wrapper" ng-controller="categoryController">
 
 	<!-- new note form -->
-	<div class="custom-modal" data-id="newNote" ng-controller="categoryController">
+	<div class="custom-modal" data-id="newNote">
     <div class="content">
-	  <i class="icon ion-close-round custom-close-modal" ng-click="closeModal()"></i>
+	  <i class="button button-small ion-close-round custom-close-modal" ng-click="closeModal()"></i>
     <div class="modal-header">
       <h3><i class="icon ion-compose"></i>new note</h3>
     </div>
 	  <input type="text" ng-model="noteTitle" placeholder="note title...">
-	  <div class="item button button-positive" ng-model="addButton" ng-disabled="!noteTitle" ng-click="newNote()">create note</div>
+	  <div class="item button button-positive add-button" ng-model="addButton" ng-disabled="!noteTitle" ng-click="newNote()">create note</div>
     </div>
 	</div>
 
@@ -28,6 +28,11 @@
 	</ion-item>
   </ion-list>
 	</div>
+
+  <!-- note template -->
+  <div ng-controller="includeCtrl">
+    <div ng-include="" src="template.note"></div>
+  </div>
 
 </div>
 

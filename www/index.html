@@ -44,12 +44,12 @@
     <!-- new category modal -->
     <div class="custom-modal" data-id="newCat" ng-controller="addController">
       <div class="content">
-      <i class="icon ion-close-round custom-close-modal" ng-click="closeModal()"></i>
+      <i class="button button-small ion-close-round custom-close-modal" ng-click="closeModal()"></i>
       <div class="modal-header">
         <h3><i class="icon ion-clipboard"></i>new category</h3>
       </div>
       <input type="text" ng-model="catName" placeholder="insert new CATEGORY here">
-      <div class="item button button-positive" ng-model="addButton" ng-disabled="!catName" ng-click="submitCategory()">add category</div>
+      <div class="item button button-positive add-button" ng-model="addButton" ng-disabled="!catName" ng-click="submitCategory()">add category</div>
       </div>
     </div>
     <!-- end of modal -->
@@ -64,21 +64,9 @@
       </ion-item>
     </ion-list>
 
-
-    <!-- category template -->
-    <!-- <div class="custom-modal" data-id="newNote" ng-controller="categoryController">
-      <i class="icon ion-close-round custom-close-modal" ng-click="closeModal()"></i>
-      <input type="text" ng-model="noteTitle" placeholder="note title...">
-      <div class="item button button-positive" ng-model="addButton" ng-disabled="!noteTitle" ng-click="newNote()">create note</div> -->
-      <!-- <form ng-submit="newNote()">
-        <label>Name:</label>
-        <input type="text" ng-model="noteTitle">
-
-        <button type="submit">Add Note</button>
-    </form> -->
-    <!-- </div> -->
+    <!-- includes -->
     <div ng-controller="includeCtrl">
-      <div ng-include="" src="template.url"></div>
+      <div ng-include="" src="template.categories"></div>
     </div>
 
     <div ng-controller="includeCtrl">

@@ -42,7 +42,7 @@ function initMap() {
   });
 
   var geocoder = new google.maps.Geocoder;
-  var infoWindow = new google.maps.InfoWindow({map: map, content: '<div class="mylabel">The label</div>'});
+  var infoWindow = new google.maps.InfoWindow({map: map, content: '<div class="mylabel">searching...</div>'});
 
   // Try HTML5 geolocation.
   if (navigator.geolocation) {
@@ -52,7 +52,8 @@ function initMap() {
         lng: position.coords.longitude
       };
       var latlng = {lat: pos.lat, lng: pos.lng}
-      getCity(geocoder, map, infoWindow, latlng);
+      getCity(geocoder, map, infoWindow, pos);
+      var marker = new google.maps.Marker({ position: pos, map: map});
 
       infoWindow.setPosition(pos);
       infoWindow.setContent('Location found.');

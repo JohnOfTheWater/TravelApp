@@ -160,8 +160,8 @@ travel.controller('addController', function($scope, $firebaseArray, $state, Cate
 
 // });
 
-travel.controller("categoryController", ["$scope", "Notes",
-  function($scope, Notes) {
+travel.controller("categoryController", ["$scope", "Notes", "Note",
+  function($scope, Notes, Note) {
 
     function closeModal(){
       $('.custom-modal[data-id="newNote"]').velocity('transition.slideUpOut',{duration:300});
@@ -176,7 +176,11 @@ travel.controller("categoryController", ["$scope", "Notes",
       $scope.note.$add({
         noteTitle: $scope.noteTitle,
         noteCat: catId,
-        cityId: cityId
+        cityId: cityId,
+        notePhone: '',
+        noteSite: '',
+        noteEmail: '',
+        noteNotes: ''
       }).then(function() {//when it's done
         // alert('Profile saved!');
         closeModal();
@@ -185,13 +189,36 @@ travel.controller("categoryController", ["$scope", "Notes",
         alert('Error!');
       });
     };
+    $scope.openNote = function(note) {
+      console.log(note);
+      var catId = $('#category-header').attr('value');
+      $scope.note = Notes(catId);
+      $scope.note = note;
+      $('#earth-icon, ion-header-bar .button').velocity('fadeOut', {duration:300});
+      $('.note-wrapper').velocity('transition.expandIn', {duration:300});
+    };
+    $scope.closeNote = function(note) {
+      $('#earth-icon, ion-header-bar .button').velocity('fadeIn', {duration:300});
+      $('.note-wrapper').velocity('transition.expandOut', {duration:300});
+      console.log(note);
+    };
+    $scope.updateNote = function(note) {
+      var noteRef = Note(note.noteCat, note.$id);
+      // console.log(note.noteEmail);
+      // console.log(noteRef);
+      // noteRef.noteEmail = note.noteEmail;
+      // console.log(noteRef);
+      noteRef.$$scopeUpdated(note).then(function(){
+        console.log('note modified!');
+      });
+    };
   }
 ]);
 
 travel.controller('includeCtrl', function($scope){
    $scope.templates = [
    {
-     template: { url: 'templates/category.html',
+     template: { categories: 'templates/category.html',
                  cities: 'templates/cities.html',
                  note: 'templates/note.html' }
    }

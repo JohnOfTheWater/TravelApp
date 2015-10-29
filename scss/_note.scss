@@ -1,0 +1,40 @@
+.note-wrapper{
+  // display: block;
+  display: none;
+  position: absolute;
+  outline: 1px solid;
+  z-index: 21;
+  width: 100%;
+  top: -50px;
+  background-color: lightsteelblue;
+  padding-bottom: 20px;
+  .custom-close-note{
+    position: absolute;
+    right: 8px;
+    top: 5px;
+    font-size: 32px;
+    color: black;
+  }
+  .note-title{
+    display: block;
+    margin: 8px 10px 0px;
+  }
+  .item-input{
+    font-size: 30px;
+    input,
+    textarea{
+      font-size: 17px;
+    }
+  }
+  .note-label-wrapper{
+    position: relative;
+    .icon{
+      position: absolute;
+      top: 0;
+    }
+  }
+  .custom-textarea{
+    min-height: 200px;
+    padding: 5px 10px 5px 32px;
+  }
+}
