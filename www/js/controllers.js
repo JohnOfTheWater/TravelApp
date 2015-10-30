@@ -209,7 +209,11 @@ travel.controller("categoryController", ["$scope", "Notes", "Note",
       // noteRef.noteEmail = note.noteEmail;
       // console.log(noteRef);
       noteRef.$$scopeUpdated(note).then(function(){
-        console.log('note modified!');
+        // console.log('note modified!');
+        $('#modify-note-btn').text('SAVED!');
+        setTimeout(function(){
+          $('#modify-note-btn').text('save changes');
+        }, 1500);
       });
     };
   }
