@@ -1,7 +1,8 @@
-travel.controller('MainCtrl', function($scope, Categories, Cities, Notes, CityNotes) {
+travel.controller('MainCtrl', function($scope, Categories, Cities, Notes, CityNotes, NewCategories) {
 
   $scope.items = Categories;
   $scope.cities = Cities;
+  $scope.newcat = NewCategories;
   // console.log($scope.items);
 
   Categories.$loaded(function(){
