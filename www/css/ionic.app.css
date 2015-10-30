@@ -9412,7 +9412,9 @@ body {
   right: 0;
   z-index: 20; }
   .cities-wrapper .selected {
-    text-decoration: underline; }
+    text-decoration: underline;
+    font-weight: 900;
+    font-size: 20px; }
 
 .note-wrapper {
   display: none;
