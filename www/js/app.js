@@ -6,7 +6,7 @@
 
 var db = null;
 
-var travel = angular.module('travel', ['ionic','firebase', 'ngCordova']);
+var travel = angular.module('travel', ['ionic','firebase','ngCordova']);
 
 travel.run(function($ionicPlatform, $cordovaSQLite) {
   $ionicPlatform.ready(function() {
@@ -16,6 +16,30 @@ travel.run(function($ionicPlatform, $cordovaSQLite) {
     // db = window.openDatabase("test1", "1.0", "Test1 DB", 1000000);
     // $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS categories (id integer primary key, categoryname text)");
     // $cordovaSQLite.execute(db, "INSERT INTO categories (categoryname) VALUES ('Hotels'), ('Restaurants'), ('Business Cards'), ('Transportation'), ('Entertainment')");
+    if(window.cordova) {
+      // App syntax
+      db = $cordovaSQLite.openDB("myapp.db");
+    } else {
+      // Ionic serve syntax
+      db = window.openDatabase("myapp.db1", "1.0", "My app", -1);
+    }
+
+    $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS categories (id integer primary key, categoryname text)").then(function(res){
+      // console.log(res);
+      var query = "SELECT * FROM categories";
+      $cordovaSQLite.execute(db, query).then(function(res){
+        if(res.rows.length > 0){
+          console.log(res.rows);
+          results = res.rows;
+          console.log("data exists");
+          console.log(results);
+        }else{
+          console.log('way to go!');
+          var query = "INSERT INTO categories (categoryname) VALUES ('Hotels'), ('Restaurants'), ('Business Cards'), ('Transportation'), ('Entertainment')";
+          $cordovaSQLite.execute(db, query);
+        }
+      });
+    });
   });
 });
 
@@ -33,35 +57,36 @@ travel.factory('Categories', ['$firebaseArray', function($firebaseArray){
 }]);
 
 //$cordovaSQLite
-travel.factory('NewCategories', function($cordovaSQLite){
-  db = window.openDatabase("test7", "1.0", "Test7 DB", 1000000);
-  $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS categories (id integer primary key, categoryname text)");
-  // $cordovaSQLite.execute(db, "INSERT INTO categories (categoryname) VALUES ('Hotels'), ('Restaurants'), ('Business Cards'), ('Transportation'), ('Entertainment')");
-  var query = "SELECT * FROM categories";
-  console.log('query: '+query);
-  $cordovaSQLite.execute(db, query).then(function(res){
-    if(res.rows.length > 0){
-      console.log(res.rows);
-      var results = res.rows;
-      console.log("data exists");
-      return results;
-    }else{
-      var query = "INSERT INTO categories (categoryname) VALUES ('Hotels'), ('Restaurants'), ('Business Cards'), ('Transportation'), ('Entertainment')";
-      $cordovaSQLite.execute(db, query).then(function(res){
-        var query = "SELECT * FROM categories";
-        $cordovaSQLite.execute(db, query).then(function(res){
-          console.log(res.rows);
-          var results = res.rows;
-          console.log("created and returned!");
-          return results;
-        }
-      });
-    }
-  }, function(error){
-    console.log(error);
-  });
-  return '';
-});
+// travel.factory('NewCategories', function($cordovaSQLite){
+//   var results = [];
+//   db = window.openDatabase("test7", "1.0", "Test7 DB", 1000000);
+//   $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS categories (id integer primary key, categoryname text)");
+//   // $cordovaSQLite.execute(db, "INSERT INTO categories (categoryname) VALUES ('Hotels'), ('Restaurants'), ('Business Cards'), ('Transportation'), ('Entertainment')");
+//   var query = "SELECT * FROM categories";
+//   console.log('query: '+query);
+//   $cordovaSQLite.execute(db, query).then(function(res){
+//     if(res.rows.length > 0){
+//       console.log(res.rows);
+//       results = res.rows;
+//       console.log("data exists");
+//       // return results;
+//     }else{
+//       var query = "INSERT INTO categories (categoryname) VALUES ('Hotels'), ('Restaurants'), ('Business Cards'), ('Transportation'), ('Entertainment')";
+//       $cordovaSQLite.execute(db, query).then(function(res){
+//         var query = "SELECT * FROM categories";
+//         $cordovaSQLite.execute(db, query).then(function(res){
+//           console.log(res.rows);
+//           results = res.rows;
+//           console.log("created and returned!");
+//           // return results;
+//         });
+//       });
+//     }
+//   }, function(error){
+//     console.log(error);
+//   });
+//   return '';
+// });
 
 travel.factory('Notes', ['$firebaseArray', function($firebaseArray){
   return function(catId){
