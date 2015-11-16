@@ -21,7 +21,7 @@
   <ion-item ng-repeat="city in cities">
     <div class="city-item" value="{{city.cityName}}" ng-class="{selected: city.selected == 'yes'}" ng-click="selectCity(city)">
     {{city.cityName}}
-    <i class="button ion-location custom-location" ng-click="selectCity(city)"></i>
+    <i class="button ion-location custom-location"></i>
     <ion-option-button class="button-assertive" ng-click="deleteItem(city)">
       <i class="icon ion-close-circled custom-button"></i>
     </ion-option-button>

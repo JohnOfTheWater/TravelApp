@@ -180,6 +180,7 @@ travel.controller("categoryController", ["$scope", "Notes", "Note",
         noteCat: catId,
         cityId: cityId,
         notePhone: '',
+        noteAddress: '',
         noteSite: '',
         noteEmail: '',
         noteNotes: ''
