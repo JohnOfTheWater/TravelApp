@@ -104,8 +104,10 @@ travel.controller('MainCtrl', function($scope, Categories, Cities, Notes, CityNo
     //change the header text to show the selected city...
     $('#earth-icon').attr('value', city.cityName);
     $('ion-header-bar .title').text(city.cityName);
-    //...then persist the changes to the database
+    //...then persist the changes to the database...
     saveSelectedCity(city);
+    //...and go back to category page
+    $scope.hideTab();
   };
 
 });
