@@ -29,7 +29,7 @@ travel.run(function($ionicPlatform, $cordovaSQLite) {
       var query = "SELECT * FROM categories";
       $cordovaSQLite.execute(db, query).then(function(res){
         if(res.rows.length > 0){
-          console.log(res.rows);
+          // console.log(res.rows);
           results = res.rows;
           console.log("data exists");
           console.log(results);
@@ -56,38 +56,6 @@ travel.factory('Categories', ['$firebaseArray', function($firebaseArray){
   return $firebaseArray(itemsRef);
 }]);
 
-//$cordovaSQLite
-// travel.factory('NewCategories', function($cordovaSQLite){
-//   var results = [];
-//   db = window.openDatabase("test7", "1.0", "Test7 DB", 1000000);
-//   $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS categories (id integer primary key, categoryname text)");
-//   // $cordovaSQLite.execute(db, "INSERT INTO categories (categoryname) VALUES ('Hotels'), ('Restaurants'), ('Business Cards'), ('Transportation'), ('Entertainment')");
-//   var query = "SELECT * FROM categories";
-//   console.log('query: '+query);
-//   $cordovaSQLite.execute(db, query).then(function(res){
-//     if(res.rows.length > 0){
-//       console.log(res.rows);
-//       results = res.rows;
-//       console.log("data exists");
-//       // return results;
-//     }else{
-//       var query = "INSERT INTO categories (categoryname) VALUES ('Hotels'), ('Restaurants'), ('Business Cards'), ('Transportation'), ('Entertainment')";
-//       $cordovaSQLite.execute(db, query).then(function(res){
-//         var query = "SELECT * FROM categories";
-//         $cordovaSQLite.execute(db, query).then(function(res){
-//           console.log(res.rows);
-//           results = res.rows;
-//           console.log("created and returned!");
-//           // return results;
-//         });
-//       });
-//     }
-//   }, function(error){
-//     console.log(error);
-//   });
-//   return '';
-// });
-
 travel.factory('Notes', ['$firebaseArray', function($firebaseArray){
   return function(catId){
     var itemsRef = new Firebase('https://radiant-torch-278.firebaseio.com/categories');
@@ -112,6 +80,86 @@ travel.factory('Note', ['$firebaseObject', function($firebaseObject){
     return $firebaseObject(noteRef);
   }
 }]);
+
+travel.factory('DBA', function($cordovaSQLite, $q, $ionicPlatform) {
+  var self = this;
+
+  // Handle query's and potential errors
+  self.query = function (query, parameters) {
+    parameters = parameters || [];
+    var q = $q.defer();
+
+    $ionicPlatform.ready(function () {
+      $cordovaSQLite.execute(db, query, parameters)
+        .then(function (result) {
+          q.resolve(result);
+        }, function (error) {
+          console.warn('I found an error');
+          console.warn(error);
+          q.reject(error);
+        });
+    });
+    return q.promise;
+  }
+
+  // Proces a result set
+  self.getAll = function(result) {
+    var output = [];
+
+    for (var i = 0; i < result.rows.length; i++) {
+      output.push(result.rows.item(i));
+    }
+    return output;
+  }
+
+  // Proces a single result
+  self.getById = function(result) {
+    var output = null;
+    output = angular.copy(result.rows.item(0));
+    return output;
+  }
+
+  return self;
+});
+
+travel.factory('CordovaCategory', function($cordovaSQLite, DBA) {
+  var self = this;
+
+  self.all = function() {
+    return DBA.query("SELECT id, categoryname FROM categories")
+      .then(function(result){
+        // console.log(results);
+        return DBA.getAll(result);
+      });
+  }
+
+
+  self.get = function(id) {
+    var parameters = [id];
+    return DBA.query("SELECT id, categoryname FROM categories WHERE id = (?)", parameters)
+      .then(function(result) {
+        return DBA.getById(result);
+      });
+  }
+
+  self.add = function(item) {
+    var parameters = [item.categoryname];
+    return DBA.query("INSERT INTO categories (categoryname) VALUES (?)", parameters);
+  }
+
+  self.remove = function(item) {
+    console.log(item.id);
+    var parameters = [item.id];
+    return DBA.query("DELETE FROM categories WHERE id = (?)", parameters);
+  }
+
+  // self.update = function(origMember, editMember) {
+  //   var parameters = [editMember.id, editMember.name, origMember.id];
+  //   return DBA.query("UPDATE team SET id = (?), name = (?) WHERE id = (?)", parameters);
+  // }
+
+  return self;
+})
 
 
 //routing
@@ -138,6 +186,15 @@ travel.controller("DbController", function($scope, $cordovaSQLite){
       console.log(error);
     });
   }
+
+  // $scope.insert = function(categoryname){
+  //   var query = "INSERT INTO categories (categoryname) VALUES (?)";
+  //   $cordovaSQLite.execute(db, query, [categoryname]).then(function(res){
+  //     console.log("INSERT ID -> "+ res.insertId);
+  //   }, function(error){
+  //     console.log(error);
+  //   });
+  // }
 
   $scope.select = function(lastname){
     console.log(lastname);

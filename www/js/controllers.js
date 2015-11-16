@@ -1,9 +1,18 @@
-travel.controller('MainCtrl', function($scope, Categories, Cities, Notes, CityNotes) {
+travel.controller('MainCtrl', function($scope, Categories, Cities, Notes, CityNotes, CordovaCategory) {
 
-  $scope.items = Categories;
+  $scope.items = [];
+  // console.log('here');
   $scope.cities = Cities;
   // $scope.newcat = NewCategories;
   // console.log($scope.newcat);
+
+  $scope.updateItems = function() {
+    CordovaCategory.all().then(function(item){
+      $scope.items = item;
+    });
+  }
+
+  $scope.updateItems();
 
   Categories.$loaded(function(){
     console.log('categories loaded from database!');
@@ -43,19 +52,22 @@ travel.controller('MainCtrl', function($scope, Categories, Cities, Notes, CityNo
 
   $scope.deleteItem = function(item){
     // console.log(item.$id);
-    if($('.category-wrapper').hasClass('opened')){
-      // var catId = $('#category-header').attr('value');
-      // $scope.notes = Notes(catId);//don't need it cause scope is defined already at this point
-      var pool = $scope.notes;
-    }else if($('.cities-wrapper').hasClass('opened')){
-      var pool = $scope.cities;
-    }else{
-      var pool = $scope.items;
-    }
-    pool.$remove(item)
-        .then(function(){
-           console.log('item deleted!');
-      });
+    // if($('.category-wrapper').hasClass('opened')){
+    //   // var catId = $('#category-header').attr('value');
+    //   // $scope.notes = Notes(catId);//don't need it cause scope is defined already at this point
+    //   var pool = $scope.notes;
+    // }else if($('.cities-wrapper').hasClass('opened')){
+    //   var pool = $scope.cities;
+    // }else{
+    //   var pool = $scope.items;
+    // }
+    // pool.$remove(item)
+    //     .then(function(){
+    //        console.log('item deleted!');
+    //   });
+    console.log(item);
+    CordovaCategory.remove(item);
+    $scope.updateItems();
   };
   $scope.showCategory = function(item){
     // console.log(item);
@@ -112,7 +124,7 @@ travel.controller('MainCtrl', function($scope, Categories, Cities, Notes, CityNo
 });
 
 
-travel.controller('addController', function($scope, $firebaseArray, $state, Categories, Cities){
+travel.controller('addController', function($scope, $firebaseArray, $state, Categories, Cities, CordovaCategory){
   function closeModal(id){
     $('.custom-modal[data-id="'+id+'"]').velocity('transition.slideUpOut',{duration:300});
   }
@@ -128,13 +140,11 @@ travel.controller('addController', function($scope, $firebaseArray, $state, Cate
   };
 
   $scope.submitCategory = function(){
-    $scope.newCat = Categories;
-    $scope.newCat.$add({
-      catName: $scope.catName
-    }).then(function(){//when it's done
-      var id = "newCat";
-      closeModal(id);
-    });
+    var item = {categoryname: $scope.catName};
+    CordovaCategory.add(item);
+    var id = "newCat";
+    closeModal(id);
+    $scope.updateItems();
   };
 
 
