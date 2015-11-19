@@ -10,7 +10,7 @@ var travel = angular.module('travel', ['ionic','firebase','ngCordova']);
 
 travel.run(function($ionicPlatform, $cordovaSQLite) {
   $ionicPlatform.ready(function() {
-    alert('ready');
+    // alert('ready');
     // db = $cordovaSQLite.openDB({ name: "my.db"});
     // db = window.openDatabase("test", "1.0", "Test DB", 1000000);
     // db = window.openDatabase("test1", "1.0", "Test1 DB", 1000000);
@@ -24,6 +24,7 @@ travel.run(function($ionicPlatform, $cordovaSQLite) {
       db = window.openDatabase("myapp.db1", "1.0", "My app", -1);
     }
 
+    // alert(db);
     //create categories table if not exists and insert some default category
     $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS categories (id integer primary key, categoryname text)").then(function(res){
       // console.log(res);
@@ -69,11 +70,14 @@ travel.run(function($ionicPlatform, $cordovaSQLite) {
     // var query = "DROP TABLE cities";
     // $cordovaSQLite.execute(db, query);
     // to select stuff
-    // var query = "SELECT id, noteTitle FROM notes WHERE cityId = 'Nashville' AND noteCat = 1";
-    // $cordovaSQLite.execute(db, query).then(function(res){
-    //   console.log('here');
-    //   console.log(res.rows);
-    // });
+    setTimeout(function(){
+      var query = "SELECT cityname FROM cities WHERE id = 1";
+      $cordovaSQLite.execute(db, query).then(function(res){
+        // console.dir(res);
+        var x = res.rows[0].cityname;
+        alert(x);
+      });
+    }, 2000);
 
   });
 });
