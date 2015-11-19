@@ -24,6 +24,7 @@ travel.run(function($ionicPlatform, $cordovaSQLite) {
       db = window.openDatabase("myapp.db1", "1.0", "My app", -1);
     }
 
+    //create categories table if not exists and insert some default category
     $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS categories (id integer primary key, categoryname text)").then(function(res){
       // console.log(res);
       var query = "SELECT * FROM categories";
@@ -31,7 +32,7 @@ travel.run(function($ionicPlatform, $cordovaSQLite) {
         if(res.rows.length > 0){
           // console.log(res.rows);
           results = res.rows;
-          console.log("data exists");
+          console.log("categories exists");
           console.log(results);
         }else{
           console.log('way to go!');
@@ -40,6 +41,35 @@ travel.run(function($ionicPlatform, $cordovaSQLite) {
         }
       });
     });
+
+    //create cities table if not exists and insert some default cities
+    $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS cities (id integer primary key, cityname text, selected text)").then(function(res){
+      // console.log(res);
+      var query = "SELECT * FROM cities";
+      $cordovaSQLite.execute(db, query).then(function(res){
+        if(res.rows.length > 0){
+          console.log("cities exists");
+          console.log(res.rows);
+        }else{
+          console.log('way to go!');
+          var query = "INSERT INTO cities (cityname, selected) VALUES ('Nashville','yes'), ('Chicago','no'), ('Philadelphia','no'), ('Honk-Kong','no'), ('London','no')";
+          $cordovaSQLite.execute(db, query);
+        }
+      });
+    });
+
+    $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS notes (id integer primary key, cityId text, noteAddress text, noteCat text, noteEmail text, noteNotes text, notePhone text, noteSite text, noteTitle text)");
+
+    // to drop a table
+    // var query = "DROP TABLE notes";
+    // $cordovaSQLite.execute(db, query);
+    // to select stuff
+    // var query = "SELECT id, noteTitle FROM notes WHERE cityId = 'Nashville' AND noteCat = 1";
+    // $cordovaSQLite.execute(db, query).then(function(res){
+    //   console.log('here');
+    //   console.log(res.rows);
+    // });
+
   });
 });
 
@@ -86,6 +116,7 @@ travel.factory('DBA', function($cordovaSQLite, $q, $ionicPlatform) {
 
   // Handle query's and potential errors
   self.query = function (query, parameters) {
+    // console.log(query);
     parameters = parameters || [];
     var q = $q.defer();
 
@@ -159,8 +190,92 @@ travel.factory('CordovaCategory', function($cordovaSQLite, DBA) {
   // }
 
   return self;
-})
+});
 
+travel.factory('CordovaCity', function($cordovaSQLite, DBA) {
+  var self = this;
+
+  self.all = function() {
+    return DBA.query("SELECT id, cityname, selected FROM cities")
+      .then(function(result){
+        // console.log(result);
+        return DBA.getAll(result);
+      });
+  }
+
+
+  self.get = function(id) {
+    var parameters = [id];
+    return DBA.query("SELECT id, cityname FROM cities WHERE id = (?)", parameters)
+      .then(function(result) {
+        return DBA.getById(result);
+      });
+  }
+
+  self.add = function(item) {
+    var parameters = [item.cityname, item.selected];
+    return DBA.query("INSERT INTO cities (cityname, selected) VALUES (?,?)", parameters);
+  }
+
+  self.remove = function(item) {
+    console.log(item.id);
+    var parameters = [item.id];
+    return DBA.query("DELETE FROM cities WHERE id = (?)", parameters);
+  }
+
+  self.update = function(item) {
+    var parameters = [item.selected, item.id];
+    return DBA.query("UPDATE cities SET selected = (?) WHERE id = (?)", parameters);
+  }
+
+  return self;
+});
+
+travel.factory('CordovaNote', function($cordovaSQLite, DBA) {
+  var self = this;
+
+  self.all = function(item) {
+    var parameters = [item.cityId, item.noteCat];
+    // console.log(parameters);
+    // return DBA.query("SELECT id, noteTitle FROM notes WHERE cityId = 'Nashville' AND noteCat = 1", parameters)
+    //   .then(function(result){
+    //     console.log(result);
+    //     return DBA.getAll(result);
+    //   });
+    var query = "SELECT id, noteTitle FROM notes WHERE cityId = '"+item.cityId+"' AND noteCat = "+item.noteCat+"";
+    return $cordovaSQLite.execute(db, query).then(function(res){
+      console.log(res.rows);
+      return DBA.getAll(res);
+    });
+  }
+
+
+  self.get = function(id) {
+    var parameters = [id];
+    return DBA.query("SELECT id, cityId, noteAddress, noteCat, noteEmail, noteNotes, notePhone, noteSite, noteTitle FROM notes WHERE id = (?)", parameters)
+      .then(function(result) {
+        return DBA.getById(result);
+      });
+  }
+
+  self.add = function(item) {
+    var parameters = [item.cityId, item.noteAddress, item.noteCat, item.noteEmail, item.noteNotes, item.notePhone, item.noteSite, item.noteTitle];
+    return DBA.query("INSERT INTO notes (cityId, noteAddress, noteCat, noteEmail, noteNotes, notePhone, noteSite, noteTitle) VALUES (?,?,?,?,?,?,?,?)", parameters);
+  }
+
+  self.remove = function(item) {
+    console.log(item.id);
+    var parameters = [item.id];
+    return DBA.query("DELETE FROM notes WHERE id = (?)", parameters);
+  }
+
+  // self.update = function(origMember, editMember) {
+  //   var parameters = [editMember.id, editMember.name, origMember.id];
+  //   return DBA.query("UPDATE team SET id = (?), name = (?) WHERE id = (?)", parameters);
+  // }
+
+  return self;
+});
 
 //routing
 travel.config(function($stateProvider, $urlRouterProvider) {
