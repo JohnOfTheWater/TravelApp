@@ -8,7 +8,7 @@ var db = null;
 
 var travel = angular.module('travel', ['ionic','firebase','ngCordova']);
 
-travel.run(function($ionicPlatform, $cordovaSQLite) {
+travel.run(function($ionicPlatform, $cordovaSQLite, $window) {
   $ionicPlatform.ready(function() {
     // console.log('ready');
     // db = $cordovaSQLite.openDB({ name: "my.db"});
@@ -38,7 +38,7 @@ travel.run(function($ionicPlatform, $cordovaSQLite) {
           console.log('way to go!');
           var query = "INSERT INTO categories (categoryname) VALUES ('Hotels'), ('Restaurants'), ('Business Cards'), ('Transportation'), ('Entertainment')";
           $cordovaSQLite.execute(db, query).then(function(){
-            window.location.reload(true);
+            $window.location.reload(true);
           });
         }
       });
@@ -56,7 +56,7 @@ travel.run(function($ionicPlatform, $cordovaSQLite) {
           console.log('way to go!');
           var query = "INSERT INTO cities (cityname, selected) VALUES ('Nashville','yes'), ('Chicago','no'), ('Philadelphia','no'), ('Honk-Kong','no'), ('London','no')";
           $cordovaSQLite.execute(db, query).then(function(){
-            window.location.reload(true);
+            $window.location.reload(true);
           });
         }
       });
