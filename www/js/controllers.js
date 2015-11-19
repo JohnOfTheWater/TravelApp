@@ -246,21 +246,32 @@ travel.controller("categoryController", ["$scope", "Notes", "Note", "CordovaNote
     };
 
     $scope.updateNote = function(note) {
-      var noteRef = Note(note.noteCat, note.$id);
+      // var noteRef = Note(note.noteCat, note.$id);
       // console.log(note.noteEmail);
       // console.log(noteRef);
       // noteRef.noteEmail = note.noteEmail;
       // console.log(noteRef);
 
-      noteRef.$$scopeUpdated(note).then(function(){
+      // noteRef.$$scopeUpdated(note).then(function(){
         // console.log('note modified!');
-        $('#modify-note-btn').text('SAVED!');
-        setTimeout(function(){
-          $('#modify-note-btn').text('save changes');
-        }, 1500);
-      });
-      // var note = {noteAddress: selected, id: item[i].id};
-      // CordovaNote.update(note);
+      //   $('#modify-note-btn').text('SAVED!');
+      //   setTimeout(function(){
+      //     $('#modify-note-btn').text('save changes');
+      //   }, 1500);
+      // });
+      // sql from here
+      // var newNote = {noteAddress: note.noteAddress,
+      //             noteEmail: note.noteEmail,
+      //             noteNotes: note.noteNotes,
+      //             notePhone: note.notePhone,
+      //             noteSite: note.noteSite};
+      // console.log(note);
+      // console.log(newNote);
+      CordovaNote.update(note);
+      $('#modify-note-btn').text('SAVED!');
+      setTimeout(function(){
+        $('#modify-note-btn').text('save changes');
+      }, 1500);
     };
   }
 ]);

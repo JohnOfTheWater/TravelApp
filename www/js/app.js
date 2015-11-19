@@ -37,7 +37,9 @@ travel.run(function($ionicPlatform, $cordovaSQLite) {
         }else{
           console.log('way to go!');
           var query = "INSERT INTO categories (categoryname) VALUES ('Hotels'), ('Restaurants'), ('Business Cards'), ('Transportation'), ('Entertainment')";
-          $cordovaSQLite.execute(db, query);
+          $cordovaSQLite.execute(db, query).then(function(){
+            window.location.reload(true);
+          });
         }
       });
     });
@@ -53,7 +55,9 @@ travel.run(function($ionicPlatform, $cordovaSQLite) {
         }else{
           console.log('way to go!');
           var query = "INSERT INTO cities (cityname, selected) VALUES ('Nashville','yes'), ('Chicago','no'), ('Philadelphia','no'), ('Honk-Kong','no'), ('London','no')";
-          $cordovaSQLite.execute(db, query);
+          $cordovaSQLite.execute(db, query).then(function(){
+            window.location.reload(true);
+          });
         }
       });
     });
@@ -61,7 +65,7 @@ travel.run(function($ionicPlatform, $cordovaSQLite) {
     $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS notes (id integer primary key, cityId text, noteAddress text, noteCat text, noteEmail text, noteNotes text, notePhone text, noteSite text, noteTitle text)");
 
     // to drop a table
-    // var query = "DROP TABLE notes";
+    // var query = "DROP TABLE cities";
     // $cordovaSQLite.execute(db, query);
     // to select stuff
     // var query = "SELECT id, noteTitle FROM notes WHERE cityId = 'Nashville' AND noteCat = 1";
@@ -273,6 +277,10 @@ travel.factory('CordovaNote', function($cordovaSQLite, DBA) {
   //   var parameters = [editMember.id, editMember.name, origMember.id];
   //   return DBA.query("UPDATE team SET id = (?), name = (?) WHERE id = (?)", parameters);
   // }
+  self.update = function(note) {
+    var parameters = [note.noteAddress, note.noteEmail, note.noteNotes, note.notePhone, note.noteSite, note.id];
+    return DBA.query("UPDATE notes SET noteAddress = (?), noteEmail = (?), noteNotes = (?), notePhone = (?), noteSite = (?) WHERE id = (?)", parameters);
+  }
 
   return self;
 });
