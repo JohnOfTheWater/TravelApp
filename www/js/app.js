@@ -10,7 +10,7 @@ var travel = angular.module('travel', ['ionic','firebase','ngCordova']);
 
 travel.run(function($ionicPlatform, $cordovaSQLite) {
   $ionicPlatform.ready(function() {
-    // console.log('ready');
+    alert('ready');
     // db = $cordovaSQLite.openDB({ name: "my.db"});
     // db = window.openDatabase("test", "1.0", "Test DB", 1000000);
     // db = window.openDatabase("test1", "1.0", "Test1 DB", 1000000);
