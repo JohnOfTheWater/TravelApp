@@ -228,11 +228,15 @@ travel.controller("categoryController", ["$scope", "Notes", "Note", "CordovaNote
 
     $scope.openNote = function(note) {
       console.log(note);
-      var catId = $('#category-header').attr('value');
-      $scope.note = Notes(catId);
-      $scope.note = note;
-      $('#earth-icon, ion-header-bar .button').velocity('fadeOut', {duration:300});
-      $('.note-wrapper').velocity('transition.expandIn', {duration:300});
+      CordovaNote.get(note.id).then(function(note){
+        console.log(note);
+        $scope.note = note;
+        $('#earth-icon, ion-header-bar .button').velocity('fadeOut', {duration:300});
+        $('.note-wrapper').velocity('transition.expandIn', {duration:300});
+      });
+      // var catId = $('#category-header').attr('value');
+      // $scope.note = Notes(catId);
+      // $scope.note = note;
     };
 
     $scope.closeNote = function(note) {
@@ -247,6 +251,7 @@ travel.controller("categoryController", ["$scope", "Notes", "Note", "CordovaNote
       // console.log(noteRef);
       // noteRef.noteEmail = note.noteEmail;
       // console.log(noteRef);
+
       noteRef.$$scopeUpdated(note).then(function(){
         // console.log('note modified!');
         $('#modify-note-btn').text('SAVED!');
@@ -254,6 +259,8 @@ travel.controller("categoryController", ["$scope", "Notes", "Note", "CordovaNote
           $('#modify-note-btn').text('save changes');
         }, 1500);
       });
+      // var note = {noteAddress: selected, id: item[i].id};
+      // CordovaNote.update(note);
     };
   }
 ]);
