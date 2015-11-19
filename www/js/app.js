@@ -71,6 +71,7 @@ travel.run(function($ionicPlatform, $cordovaSQLite) {
     // $cordovaSQLite.execute(db, query);
     // to select stuff
     setTimeout(function(){
+      alert('miao');
       var query = "SELECT cityname FROM cities WHERE id = 1";
       $cordovaSQLite.execute(db, query).then(function(res){
         // console.dir(res);
