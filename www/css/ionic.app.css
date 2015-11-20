@@ -9294,6 +9294,9 @@ a.button {
 
 body {
   background-color: whitesmoke; }
+  body .scroll-content {
+    overflow: scroll;
+    margin-bottom: 44px; }
 
 .earth-custom {
   height: 30px;

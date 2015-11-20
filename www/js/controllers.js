@@ -38,6 +38,12 @@ travel.controller('MainCtrl', function($scope, Categories, Cities, Notes, CityNo
   $scope.updateItems();
   $scope.updateCities();
 
+  //dev tools to comment out later on
+  $scope.refresh = function(){
+    $scope.updateItems();
+    $scope.updateCities();
+  };
+
   Categories.$loaded(function(){
     console.log('categories loaded from database!');
   });
@@ -179,22 +185,13 @@ travel.controller('addController', function($scope, $firebaseArray, $state, Cate
 
 });
 
-// travel.controller("categoryController", function($scope, $stateParams, $state, $firebaseArray, Categories, Notes) {
+// travel.controller("refreshCtrl", function($scope, $firebaseArray, Categories, Notes) {
 
-//   function closeModal(){
-//     $('.custom-modal[data-id="newNote"]').velocity('transition.slideUpOut',{duration:300});
+//   function test(){
 //   }
 
-//   $scope.newNote = function(){
-//     console.log('miao');
-//     var catId = $('#category-header').attr('value');
-//     $scope.newNote = Notes(catId);
-//     $scope.newNote.$add({
-//       noteTitle: $scope.noteName,
-//       noteCat: catId
-//     }).then(function(){//when it's done
-//       closeModal();
-//     });
+//   $scope.refresh = function(){
+
 //   };
 
 

@@ -10,12 +10,13 @@ var travel = angular.module('travel', ['ionic','firebase','ngCordova']);
 
 travel.run(function($ionicPlatform, $cordovaSQLite) {
   $ionicPlatform.ready(function() {
-    // alert('ready');
     // db = $cordovaSQLite.openDB({ name: "my.db"});
     // db = window.openDatabase("test", "1.0", "Test DB", 1000000);
     // db = window.openDatabase("test1", "1.0", "Test1 DB", 1000000);
     // $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS categories (id integer primary key, categoryname text)");
     // $cordovaSQLite.execute(db, "INSERT INTO categories (categoryname) VALUES ('Hotels'), ('Restaurants'), ('Business Cards'), ('Transportation'), ('Entertainment')");
+    // var xx = window.cordova;
+    // alert(xx);
     if(window.cordova) {
       // App syntax
       db = $cordovaSQLite.openDB("myapp.db");
@@ -24,7 +25,6 @@ travel.run(function($ionicPlatform, $cordovaSQLite) {
       db = window.openDatabase("myapp.db1", "1.0", "My app", -1);
     }
 
-    // alert(db);
     //create categories table if not exists and insert some default category
     $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS categories (id integer primary key, categoryname text)").then(function(res){
       // console.log(res);
@@ -37,9 +37,10 @@ travel.run(function($ionicPlatform, $cordovaSQLite) {
           console.log(results);
         }else{
           console.log('way to go!');
-          var query = "INSERT INTO categories (categoryname) VALUES ('Hotels'), ('Restaurants'), ('Business Cards'), ('Transportation'), ('Entertainment')";
+          var query = "INSERT INTO categories (categoryname) VALUES ('Hotels'), ('Restaurants'), ('Business Cards'), ('Transportation'), ('Entertainmentz')";
           $cordovaSQLite.execute(db, query).then(function(){
             // $window.location.reload(true);
+            // alert('way to go cat!');
           });
         }
       });
@@ -56,8 +57,9 @@ travel.run(function($ionicPlatform, $cordovaSQLite) {
         }else{
           console.log('way to go!');
           var query = "INSERT INTO cities (cityname, selected) VALUES ('Nashville','yes'), ('Chicago','no'), ('Philadelphia','no'), ('Honk-Kong','no'), ('London','no')";
+          // alert(query);
           $cordovaSQLite.execute(db, query).then(function(){
-            alert('way to go!');
+            // alert('way to go cities!');
             // $window.location.reload(true);
           });
         }
@@ -70,15 +72,16 @@ travel.run(function($ionicPlatform, $cordovaSQLite) {
     // var query = "DROP TABLE cities";
     // $cordovaSQLite.execute(db, query);
     // to select stuff
-    setTimeout(function(){
-      alert('miao');
-      var query = "SELECT cityname FROM cities WHERE id = 1";
-      $cordovaSQLite.execute(db, query).then(function(res){
-        // console.dir(res);
-        var x = res.rows[0].cityname;
-        alert(x);
-      });
-    }, 2000);
+    // setTimeout(function(){
+    //   var x = db;
+    //   alert('miao');
+    //   var query = "SELECT cityname FROM cities";
+    //   $cordovaSQLite.execute(x, query).then(function(res){
+    //     // console.dir(res);
+    //     var x = res.rows[0].cityname;
+    //     alert(x);
+    //   });
+    // }, 2000);
 
   });
 });
