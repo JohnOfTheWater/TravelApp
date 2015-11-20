@@ -1,22 +1,24 @@
 .categories-header{
-	display: block;
-	text-transform: uppercase;
-	background-color: slategray;
-	color: white;
+  display: block;
+  text-transform: uppercase;
+  background-color: slategray;
+  color: white;
+  // border-color: #111;
+  //   background-color: #444444;
 }
 .category-wrapper{
-	// display: block;
-	display: none;
-	position: absolute;
-	top: 0;
-	background-color: whitesmoke;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	z-index: 20;
-	.category-list{
-		ion-item:last-child{
-			// display: none;
-		}
-	}
+  // display: block;
+  display: none;
+  position: absolute;
+  top: 0;
+  background-color: whitesmoke;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  .category-list{
+    ion-item:last-child{
+      // display: none;
+    }
+  }
 }
