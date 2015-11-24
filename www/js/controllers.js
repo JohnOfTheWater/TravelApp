@@ -1,4 +1,4 @@
-travel.controller('MainCtrl', function($scope, Categories, Cities, Notes, CityNotes, CordovaCategory, CordovaCity, CordovaNote) {
+travel.controller('MainCtrl', function($scope, $ionicPlatform, Categories, Cities, Notes, CityNotes, CordovaCategory, CordovaCity, CordovaNote, Lokidb) {
 
   $scope.items = [];
   // console.log('here');
@@ -42,7 +42,28 @@ travel.controller('MainCtrl', function($scope, Categories, Cities, Notes, CityNo
   $scope.refresh = function(){
     $scope.updateItems();
     $scope.updateCities();
+    //console.log(cordova.file);//Cordova not available in the browser, only on device.
+    //console.log('stuff');
   };
+  $('#welcome-image').click(function(){
+    $('#welcome-image').fadeOut();
+    $scope.refresh();
+    setTimeout(function(){
+      $('.category-list .item-complex').velocity('transition.expandIn' ,{drag: true, stagger: 100, duration:400});
+    }, 100);
+  });
+
+  // $('#image-test')
+
+  //loki initdb
+  $ionicPlatform.ready(function() {
+    Lokidb.initDatabase();
+  });
+
+  // document.addEventListener("deviceready", onDeviceReady, false);
+  // function onDeviceReady() {
+  //     console.log(cordova.file);
+  // }
 
   Categories.$loaded(function(){
     console.log('categories loaded from database!');

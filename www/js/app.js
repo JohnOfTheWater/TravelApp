@@ -6,7 +6,7 @@
 
 var db = null;
 
-var travel = angular.module('travel', ['ionic','firebase','ngCordova']);
+var travel = angular.module('travel', ['ionic', 'lokijs', 'firebase','ngCordova']);
 
 travel.run(function($ionicPlatform, $cordovaSQLite) {
   $ionicPlatform.ready(function() {
@@ -37,7 +37,7 @@ travel.run(function($ionicPlatform, $cordovaSQLite) {
           console.log(results);
         }else{
           console.log('way to go!');
-          var query = "INSERT INTO categories (categoryname) VALUES ('Hotels'), ('Restaurants'), ('Business Cards'), ('Transportation'), ('Entertainmentz')";
+          var query = "INSERT INTO categories (categoryname) VALUES ('Hotels'), ('Restaurants'), ('Business Cards'), ('Transportation'), ('Entertainment')";
           $cordovaSQLite.execute(db, query).then(function(){
             // $window.location.reload(true);
             // alert('way to go cat!');
@@ -67,6 +67,23 @@ travel.run(function($ionicPlatform, $cordovaSQLite) {
     });
 
     $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS notes (id integer primary key, cityId text, noteAddress text, noteCat text, noteEmail text, noteNotes text, notePhone text, noteSite text, noteTitle text)");
+
+
+    // var adapter = new LokiCordovaFSAdapter({"prefix": "loki"});
+
+    // var loki_db = new loki('dbWithAdapter.json', {adapter: adapter});
+
+    // var children = loki_db.addCollection('children');
+
+    // children.insert({name:'lallo', legs: 8});
+
+    // var child = children.get(1);
+
+    // console.log(children.data);
+
+    // loki_db.saveDatabase(function(){
+    //   console.log('db saved');
+    // });
 
     // to drop a table
     // var query = "DROP TABLE cities";
@@ -294,6 +311,35 @@ travel.factory('CordovaNote', function($cordovaSQLite, DBA) {
   return self;
 });
 
+//Loki factory
+travel.factory('Lokidb', function($q, Loki){
+
+  var self = this;
+  var _db;
+
+  self.initDatabase = function(){
+
+    var adapter = new LokiCordovaFSAdapter({"prefix": "loki"});
+
+    var idbAdapter = new LokiIndexedAdapter('cities');
+
+    var loki_db = new loki('loki.json',
+                    {
+                      // adapter: adapter,
+                      autosave: true,
+                      autosaveInterval: 1000,
+                      persistenceMethod: 'adapter',
+                      // adapter: adapter
+                    });
+
+    loki_db.saveDatabase(function(){
+      console.log('db saved!!!!');
+    });
+  }
+  return self;
+
+});
+
 //routing
 travel.config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/')
@@ -307,47 +353,4 @@ travel.config(function($stateProvider, $urlRouterProvider) {
 
 });
 
-//cordovaSQLite
-travel.controller("DbController", function($scope, $cordovaSQLite){
-
-  $scope.insert = function(firstname, lastname){
-    var query = "INSERT INTO people (firstname, lastname) VALUES (?, ?)";
-    $cordovaSQLite.execute(db, query, [firstname, lastname]).then(function(res){
-      console.log("INSERT ID -> "+ res.insertId);
-    }, function(error){
-      console.log(error);
-    });
-  }
-
-  // $scope.insert = function(categoryname){
-  //   var query = "INSERT INTO categories (categoryname) VALUES (?)";
-  //   $cordovaSQLite.execute(db, query, [categoryname]).then(function(res){
-  //     console.log("INSERT ID -> "+ res.insertId);
-  //   }, function(error){
-  //     console.log(error);
-  //   });
-  // }
-
-  $scope.select = function(lastname){
-    console.log(lastname);
-    var query = "SELECT firstname, lastname FROM people WHERE lastname = ?";
-    console.log('query: '+query);
-    $cordovaSQLite.execute(db, query, [lastname]).then(function(res){
-      console.log(res.rows);
-      if(res.rows.length > 0){
-        console.log("SELECTED -> "+ res.rows.item(0).lastname);
-        for (var i = 0; i < res.rows.length; i++) {
-          var text = res.rows.item(i).lastname;
-          var $result = $('<div>').text(text);
-          $('#select-result').append($result);
-        }
-      }else{
-        console.log("no rows exist");
-      }
-    }, function(error){
-      console.log(error);
-    });
-  }
-
-});
 

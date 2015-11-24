@@ -9389,11 +9389,37 @@ body {
   #map .login-control {
     display: none !important; }
 
+#welcome-image {
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: url("../img/norwich.jpg");
+  background-size: cover !important;
+  background-repeat: no-repeat !important; }
+  #welcome-image .app-title,
+  #welcome-image .welcome-city {
+    text-align: center;
+    margin-top: 4em;
+    text-transform: uppercase;
+    color: crimson;
+    text-shadow: 2px 2px 2px black;
+    font-size: 2em;
+    font-family: sans-serif; }
+  #welcome-image .welcome-city {
+    margin: 0; }
+
 .categories-header {
   display: block;
   text-transform: uppercase;
   background-color: slategray;
   color: white; }
+
+.category-list .item-complex {
+  opacity: 0; }
 
 .category-wrapper {
   display: none;
