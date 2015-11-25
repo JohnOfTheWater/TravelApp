@@ -3,10 +3,11 @@
   text-transform: uppercase;
   background-color: slategray;
   color: white;
+  border-style: none;
 }
 .category-list{
   .item-complex{
-    opacity: 0;
+    opacity: 1;
   }
 }
 .category-wrapper{

@@ -1,5 +1,8 @@
 travel.controller('MainCtrl', function($scope, $ionicPlatform, Categories, Cities, Notes, CityNotes, CordovaCategory, CordovaCity, CordovaNote, Lokidb) {
 
+  //hide categories on page-load
+  $('.category-list .item-complex').css('opacity', '0');
+
   $scope.items = [];
   // console.log('here');
   // $scope.cities = Cities;
@@ -42,15 +45,21 @@ travel.controller('MainCtrl', function($scope, $ionicPlatform, Categories, Citie
   $scope.refresh = function(){
     $scope.updateItems();
     $scope.updateCities();
+    var x = 'lollo';
+    Lokidb.addCategory(x);
     //console.log(cordova.file);//Cordova not available in the browser, only on device.
     //console.log('stuff');
   };
+
   $('#welcome-image').click(function(){
     $('#welcome-image').fadeOut();
     $scope.refresh();
     setTimeout(function(){
       $('.category-list .item-complex').velocity('transition.expandIn' ,{drag: true, stagger: 100, duration:400});
     }, 100);
+    //interesting angular code
+    // ionic.DomUtil.ready(function(){
+    // angular.element(document.querySelector('#bar'))
   });
 
   // $('#image-test')

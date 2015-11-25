@@ -10,13 +10,8 @@ var travel = angular.module('travel', ['ionic', 'lokijs', 'firebase','ngCordova'
 
 travel.run(function($ionicPlatform, $cordovaSQLite) {
   $ionicPlatform.ready(function() {
-    // db = $cordovaSQLite.openDB({ name: "my.db"});
-    // db = window.openDatabase("test", "1.0", "Test DB", 1000000);
-    // db = window.openDatabase("test1", "1.0", "Test1 DB", 1000000);
-    // $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS categories (id integer primary key, categoryname text)");
-    // $cordovaSQLite.execute(db, "INSERT INTO categories (categoryname) VALUES ('Hotels'), ('Restaurants'), ('Business Cards'), ('Transportation'), ('Entertainment')");
-    // var xx = window.cordova;
-    // alert(xx);
+
+    // alert(window.Document.name);
     if(window.cordova) {
       // App syntax
       db = $cordovaSQLite.openDB("myapp.db");
@@ -315,27 +310,68 @@ travel.factory('CordovaNote', function($cordovaSQLite, DBA) {
 travel.factory('Lokidb', function($q, Loki){
 
   var self = this;
-  var _db;
+  var loki_db;
+  var categories;
+  var cat;
 
   self.initDatabase = function(){
 
-    var adapter = new LokiCordovaFSAdapter({"prefix": "loki"});
+    var adapter = new LokiCordovaFSAdapter({"prefix": "my_loki"});
 
-    var idbAdapter = new LokiIndexedAdapter('cities');
+    // var idbAdapter = new LokiIndexedAdapter('cities');
 
-    var loki_db = new loki('loki.json',
-                    {
-                      // adapter: adapter,
-                      autosave: true,
-                      autosaveInterval: 1000,
-                      persistenceMethod: 'adapter',
-                      // adapter: adapter
-                    });
+
+
+    if(window.cordova) {
+      loki_db = new loki('loki.json',
+                      {
+                        // persistenceMethod: 'adapter',
+                        autosave: true,
+                        autosaveInterval: 1000,
+                        adapter: adapter,
+                      });
+      // alert('persistent');
+      console.log(cordova.file.dataDirectory);
+    }else{
+      loki_db = new loki('loki.json');
+    }
+
+    categories = loki_db.addCollection('Categories');
+
+    cat = loki_db.getCollection('Categories');
+    console.log('categories length: '+cat.data.length);
+    if(cat.data.length === 0){
+      categories.insert({
+        categoryname: 'Hotels'
+      });
+      categories.insert({
+        categoryname: 'Restaurants'
+      });
+    }
 
     loki_db.saveDatabase(function(){
       console.log('db saved!!!!');
     });
+
+    console.log(cat.data[0].categoryname);
   }
+
+  self.addCategory = function(x){
+    var options = {};
+    loki_db.loadDatabase(options, function(){
+      if(!cat){
+        categories.insert({
+            categoryname: x
+          });
+      }else{
+        for (var i = 0; i < cat.data.length; i++) {
+          console.log('cat name: '+cat.data[i].categoryname);
+        }
+      }
+    });
+    console.log(cat.data);
+  }
+
   return self;
 
 });

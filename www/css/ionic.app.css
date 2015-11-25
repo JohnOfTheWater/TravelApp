@@ -9383,7 +9383,9 @@ body {
     right: 10px; }
 
 #map {
-  height: 150px; }
+  height: 150px;
+  border-bottom: 1px solid black;
+  border-top: 1px solid black; }
   #map .gm-sm {
     display: none !important; }
   #map .login-control {
@@ -9410,16 +9412,51 @@ body {
     font-size: 2em;
     font-family: sans-serif; }
   #welcome-image .welcome-city {
-    margin: 0; }
+    margin: 0;
+    position: absolute;
+    bottom: 5.5em;
+    right: 1em;
+    font-size: 1.1em; }
+
+.chicago {
+  background: url("../img/chicago.jpg") !important; }
+
+.toronto {
+  background: url("../img/toronto.jpg") !important; }
+
+.dc {
+  background: url("../img/dc.jpg") !important; }
+
+.san-francisco {
+  background: url("../img/san-francisco.jpg") !important; }
+
+.philadelphia {
+  background: url("../img/philadelphia.jpg") !important; }
+
+.istanbul {
+  background: url("../img/istanbul.jpg") !important; }
+
+.atlanta {
+  background: url("../img/atlanta.jpg") !important; }
+
+.new-york {
+  background: url("../img/new-york.jpg") !important; }
+
+.nashville {
+  background: url("../img/nashville.jpg") !important; }
+
+.london {
+  background: url("../img/london.jpg") !important; }
 
 .categories-header {
   display: block;
   text-transform: uppercase;
   background-color: slategray;
-  color: white; }
+  color: white;
+  border-style: none; }
 
 .category-list .item-complex {
-  opacity: 0; }
+  opacity: 1; }
 
 .category-wrapper {
   display: none;

@@ -5,6 +5,9 @@ body{
     margin-bottom: 44px;
   }
 }
+.bar-header{
+  // border-bottom: 1px solid black !important;
+}
 
 //header
 .earth-custom{
@@ -116,6 +119,8 @@ body{
 //map styles
 #map{
   height: 150px;
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
   .gm-sm {
     display: none !important;
   }
@@ -146,5 +151,40 @@ body{
   }
   .welcome-city{
     margin: 0;
+    position: absolute;
+    bottom: 5.5em;
+    right: 1em;
+    font-size: 1.1em;
   }
 }
+.chicago{
+  background: url('../img/chicago.jpg') !important;
+}
+.toronto{
+  background: url('../img/toronto.jpg') !important;
+}
+.dc{
+  background: url('../img/dc.jpg') !important;
+}
+.san-francisco{
+  background: url('../img/san-francisco.jpg') !important;
+}
+.philadelphia{
+  background: url('../img/philadelphia.jpg') !important;
+}
+.istanbul{
+  background: url('../img/istanbul.jpg') !important;
+}
+.atlanta{
+  background: url('../img/atlanta.jpg') !important;
+}
+.new-york{
+  background: url('../img/new-york.jpg') !important;
+}
+.nashville{
+  background: url('../img/nashville.jpg') !important;
+}
+.london{
+  background: url('../img/london.jpg') !important;
+}
+
