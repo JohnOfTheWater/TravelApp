@@ -8,10 +8,13 @@ var db = null;
 
 var travel = angular.module('travel', ['ionic', 'lokijs', 'firebase','ngCordova']);
 
-travel.run(function($ionicPlatform, $cordovaSQLite) {
+travel.run(function($ionicPlatform, $cordovaSQLite, $timeout) {
   $ionicPlatform.ready(function() {
 
+    $timeout(function(){//to make it work more consistently in ionic view
+
     // alert(window.Document.name);
+    // console.log('sqlitePlugin: '+window.sqlitePlugin);
     if(window.cordova) {
       // App syntax
       db = $cordovaSQLite.openDB("myapp.db");
@@ -62,6 +65,8 @@ travel.run(function($ionicPlatform, $cordovaSQLite) {
     });
 
     $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS notes (id integer primary key, cityId text, noteAddress text, noteCat text, noteEmail text, noteNotes text, notePhone text, noteSite text, noteTitle text)");
+
+    },700);
 
 
     // var adapter = new LokiCordovaFSAdapter({"prefix": "loki"});
@@ -146,6 +151,7 @@ travel.factory('DBA', function($cordovaSQLite, $q, $ionicPlatform) {
     var q = $q.defer();
 
     $ionicPlatform.ready(function () {
+      // var db = $cordovaSQLite.openDB("myapp.db");
       $cordovaSQLite.execute(db, query, parameters)
         .then(function (result) {
           q.resolve(result);
@@ -329,12 +335,20 @@ travel.factory('Lokidb', function($q, Loki){
                         autosave: true,
                         autosaveInterval: 1000,
                         adapter: adapter,
+                        // autoload: true,
                       });
       // alert('persistent');
       console.log(cordova.file.dataDirectory);
+      // loki_db.loadDatabase({}, function (result) {
+      //     console.log('results of loadDatabase'+result);
+          // alert(loki_db.getCollection("Categories"));
+      // });
     }else{
       loki_db = new loki('loki.json');
     }
+
+
+
 
     categories = loki_db.addCollection('Categories');
 
@@ -359,17 +373,21 @@ travel.factory('Lokidb', function($q, Loki){
   self.addCategory = function(x){
     var options = {};
     loki_db.loadDatabase(options, function(){
-      if(!cat){
+      var categories = loki_db.getCollection('Categories');
+      if(!categories){
         categories.insert({
             categoryname: x
-          });
+        });
       }else{
-        for (var i = 0; i < cat.data.length; i++) {
-          console.log('cat name: '+cat.data[i].categoryname);
+        categories.insert({
+            categoryname: x
+        });
+        for (var i = 0; i < categories.data.length; i++) {
+          console.log('cat name: '+categories.data[i].categoryname);
         }
       }
     });
-    console.log(cat.data);
+    console.log(categories.data);
   }
 
   return self;

@@ -45,18 +45,25 @@ travel.controller('MainCtrl', function($scope, $ionicPlatform, Categories, Citie
   $scope.refresh = function(){
     $scope.updateItems();
     $scope.updateCities();
-    var x = 'lollo';
-    Lokidb.addCategory(x);
+    // var x = 'roffo';
+    // Lokidb.addCategory(x);
     //console.log(cordova.file);//Cordova not available in the browser, only on device.
     //console.log('stuff');
   };
+  $scope.getLocation = function(){
+    console.log('clicked');
+    initMap();
+  };
 
-  $('#welcome-image').click(function(){
+
+  $scope.welcome = function(){
     $('#welcome-image').fadeOut();
     $scope.refresh();
     setTimeout(function(){
       $('.category-list .item-complex').velocity('transition.expandIn' ,{drag: true, stagger: 100, duration:400});
     }, 100);
+  };
+  $('#welcome-image').click(function(){
     //interesting angular code
     // ionic.DomUtil.ready(function(){
     // angular.element(document.querySelector('#bar'))
