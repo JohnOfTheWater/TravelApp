@@ -11,7 +11,8 @@ var travel = angular.module('travel', ['ionic', 'lokijs', 'firebase','ngCordova'
 travel.run(function($ionicPlatform, $cordovaSQLite, $timeout) {
   $ionicPlatform.ready(function() {
 
-    $timeout(function(){//to make it work more consistently in ionic view
+    $('#map').addClass('google-maps');
+    // $timeout(function(){//to make it work more consistently in ionic view
 
     // alert(window.Document.name);
     // console.log('sqlitePlugin: '+window.sqlitePlugin);
@@ -66,7 +67,7 @@ travel.run(function($ionicPlatform, $cordovaSQLite, $timeout) {
 
     $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS notes (id integer primary key, cityId text, noteAddress text, noteCat text, noteEmail text, noteNotes text, notePhone text, noteSite text, noteTitle text)");
 
-    },700);
+    // },700);
 
 
     // var adapter = new LokiCordovaFSAdapter({"prefix": "loki"});
@@ -188,7 +189,7 @@ travel.factory('CordovaCategory', function($cordovaSQLite, DBA) {
   var self = this;
 
   self.all = function() {
-    return DBA.query("SELECT id, categoryname FROM categories")
+    return DBA.query("SELECT id, categoryname FROM categories ORDER BY categoryname ASC")
       .then(function(result){
         // console.log(results);
         return DBA.getAll(result);
@@ -227,7 +228,7 @@ travel.factory('CordovaCity', function($cordovaSQLite, DBA) {
   var self = this;
 
   self.all = function() {
-    return DBA.query("SELECT id, cityname, selected FROM cities")
+    return DBA.query("SELECT id, cityname, selected FROM cities ORDER BY cityname ASC")
       .then(function(result){
         // console.log(result);
         return DBA.getAll(result);
@@ -273,7 +274,7 @@ travel.factory('CordovaNote', function($cordovaSQLite, DBA) {
     //     console.log(result);
     //     return DBA.getAll(result);
     //   });
-    var query = "SELECT id, noteTitle FROM notes WHERE cityId = '"+item.cityId+"' AND noteCat = "+item.noteCat+"";
+    var query = "SELECT id, noteTitle FROM notes WHERE cityId = '"+item.cityId+"' AND noteCat = "+item.noteCat+" ORDER BY noteTitle ASC";
     return $cordovaSQLite.execute(db, query).then(function(res){
       console.log(res.rows);
       return DBA.getAll(res);

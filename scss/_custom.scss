@@ -121,6 +121,9 @@ body{
   height: 150px;
   border-bottom: 1px solid black;
   border-top: 1px solid black;
+  // background: url('../img/google-maps.jpg') !important;
+  background-size: cover !important;
+  background-position-y: 50% !important;
   .gm-sm {
     display: none !important;
   }
@@ -186,5 +189,8 @@ body{
 }
 .london{
   background: url('../img/london.jpg') !important;
+}
+.google-maps{
+  background: url('../img/google-maps.jpg') !important;
 }
 

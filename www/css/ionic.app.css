@@ -9385,7 +9385,9 @@ body {
 #map {
   height: 150px;
   border-bottom: 1px solid black;
-  border-top: 1px solid black; }
+  border-top: 1px solid black;
+  background-size: cover !important;
+  background-position-y: 50% !important; }
   #map .gm-sm {
     display: none !important; }
   #map .login-control {
@@ -9447,6 +9449,9 @@ body {
 
 .london {
   background: url("../img/london.jpg") !important; }
+
+.google-maps {
+  background: url("../img/google-maps.jpg") !important; }
 
 .categories-header {
   display: block;

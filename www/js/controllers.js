@@ -1,4 +1,4 @@
-travel.controller('MainCtrl', function($scope, $ionicPlatform, Categories, Cities, Notes, CityNotes, CordovaCategory, CordovaCity, CordovaNote, Lokidb) {
+travel.controller('MainCtrl', function($scope, $ionicPlatform, $timeout, Categories, Cities, Notes, CityNotes, CordovaCategory, CordovaCity, CordovaNote, Lokidb) {
 
   //hide categories on page-load
   $('.category-list .item-complex').css('opacity', '0');
@@ -51,8 +51,10 @@ travel.controller('MainCtrl', function($scope, $ionicPlatform, Categories, Citie
     //console.log('stuff');
   };
   $scope.getLocation = function(){
-    console.log('clicked');
     initMap();
+    $timeout(function(){
+      $('#map').removeClass('google-maps');
+    },500);
   };
 
 
