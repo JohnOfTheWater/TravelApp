@@ -26,7 +26,8 @@
     "cordova-plugin-statusbar",
     "ionic-plugin-keyboard",
     "cordova-plugin-file",
-    "org.apache.cordova.file"
+    "org.apache.cordova.file",
+    "uk.co.workingedge.phonegap.plugin.launchnavigator"
   ],
   "cordovaPlatforms": [
     "ios"

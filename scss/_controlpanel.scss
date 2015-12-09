@@ -1,0 +1,44 @@
+.control-panel-wrapper{
+  // display: none;
+  // display: block;
+  overflow: auto;
+  position: fixed;
+  z-index: 22;
+  bottom: -260px;
+  left: 0;
+  right: 0;
+  height: 300px;
+  background-color: whitesmoke;
+  outline: 1px solid;
+  .content{
+    @extend .cf;
+    display: block;
+    width: 90%;
+    margin: 0 auto;
+    .ctrl-button:nth-child(3n+3){
+      margin: 30px 0 0 20px;
+    }
+  }
+  .custom-close-control-panel{
+    display: block;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 33px;
+    color: black;
+  }
+  .button{
+    label{
+      display: block;
+      text-transform: uppercase;
+      font-size: 9px;
+    }
+  }
+  .ctrl-button{
+    display: block;
+    font-size: 40px;
+    float: left;
+    margin: 30px 20px 0;
+  }
+}
+

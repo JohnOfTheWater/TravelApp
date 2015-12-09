@@ -98,6 +98,7 @@
       <div ng-include="" src="template.cities"></div>
     </div>
 
+
     <!-- <div class="test-db" ng-controller="DbController">
       <input type="text" ng-model="firstName" placeholder="insert first name">
       <input type="text" ng-model="lastName" placeholder="insert last name">
@@ -109,10 +110,13 @@
 
 
     </ion-content> <!-- end of content -->
+    <div ng-controller="includeCtrl">
+      <div ng-include="" src="template.controlPanel"></div>
+    </div>
 
     <div class="bar bar-footer bar-dark">
       <button class="button button-icon ion-ios-location pull-left" ng-click="getLocation()"></button>
-      <button class="button button-icon ion-ios-cog pull-right" ng-click="refresh()"></button>
+      <button class="button button-icon ion-ios-cog pull-right" ng-click="toggleCtrlPanel()"></button>
     </div>
 
     <!-- <ion-nav-view></ion-nav-view> -->

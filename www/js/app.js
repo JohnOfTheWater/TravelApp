@@ -36,7 +36,7 @@ travel.run(function($ionicPlatform, $cordovaSQLite, $timeout) {
           console.log(results);
         }else{
           console.log('way to go!');
-          var query = "INSERT INTO categories (categoryname) VALUES ('Hotels'), ('Restaurants'), ('Business Cards'), ('Transportation'), ('Entertainment')";
+          var query = "INSERT INTO categories (categoryname) VALUES ('Hotels'), ('Restaurants'), ('Transportation'), ('Attractions'), ('Next Visit')";
           $cordovaSQLite.execute(db, query).then(function(){
             // $window.location.reload(true);
             // alert('way to go cat!');
@@ -87,7 +87,7 @@ travel.run(function($ionicPlatform, $cordovaSQLite, $timeout) {
     // });
 
     // to drop a table
-    // var query = "DROP TABLE cities";
+    // var query = "DROP TABLE categories";
     // $cordovaSQLite.execute(db, query);
     // to select stuff
     // setTimeout(function(){
@@ -99,7 +99,7 @@ travel.run(function($ionicPlatform, $cordovaSQLite, $timeout) {
     //     var x = res.rows[0].cityname;
     //     alert(x);
     //   });
-    // }, 2000);
+    // }, 2000); //timeout end for ionic view
 
   });
 });
@@ -189,7 +189,7 @@ travel.factory('CordovaCategory', function($cordovaSQLite, DBA) {
   var self = this;
 
   self.all = function() {
-    return DBA.query("SELECT id, categoryname FROM categories ORDER BY categoryname ASC")
+    return DBA.query("SELECT id, categoryname FROM categories")
       .then(function(result){
         // console.log(results);
         return DBA.getAll(result);

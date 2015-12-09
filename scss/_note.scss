@@ -37,4 +37,31 @@
     min-height: 200px;
     padding: 5px 10px 5px 32px;
   }
+  .button-area{
+    @extend .cf;
+    position: relative;
+    .option-button{
+      width: 5em;
+    }
+    #modify-note-btn{
+      float: right;
+    }
+    //option-panel
+    .options-panel-wrapper{
+      position: absolute;
+      display: none;
+      z-index: 22;
+      bottom: 47px;
+      left: 1px;
+      right: 1px;
+      height: 47px;
+      background-color: lightsteelblue;
+      outline: 1px solid white;
+      .button{
+        font-size: 32px;
+        background-color: lightsteelblue;
+        border: 1px solid;
+      }
+    }
+  }
 }

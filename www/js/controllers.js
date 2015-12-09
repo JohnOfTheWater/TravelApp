@@ -1,4 +1,4 @@
-travel.controller('MainCtrl', function($scope, $ionicPlatform, $timeout, Categories, Cities, Notes, CityNotes, CordovaCategory, CordovaCity, CordovaNote, Lokidb) {
+travel.controller('MainCtrl', function($scope, $ionicPlatform, $timeout, $cordovaLaunchNavigator, Categories, Cities, Notes, CityNotes, CordovaCategory, CordovaCity, CordovaNote, Lokidb) {
 
   //hide categories on page-load
   $('.category-list .item-complex').css('opacity', '0');
@@ -48,7 +48,6 @@ travel.controller('MainCtrl', function($scope, $ionicPlatform, $timeout, Categor
     // var x = 'roffo';
     // Lokidb.addCategory(x);
     //console.log(cordova.file);//Cordova not available in the browser, only on device.
-    //console.log('stuff');
   };
   $scope.getLocation = function(){
     initMap();
@@ -56,6 +55,19 @@ travel.controller('MainCtrl', function($scope, $ionicPlatform, $timeout, Categor
       $('#map').removeClass('google-maps');
     },500);
   };
+
+  $scope.toggleCtrlPanel = function(){
+    $scope.refresh();
+    // console.log('stuff');
+    var coordinates = ($('.control-panel-wrapper').hasClass('open') ? ['40px','-300px'] : ['-300px','40px']);
+    $('.control-panel-wrapper').velocity({translateY:coordinates},
+                                         {duration:350});
+    if($('.control-panel-wrapper').hasClass('open')){
+      $('.control-panel-wrapper').removeClass('open');
+    }else{
+      $('.control-panel-wrapper').addClass('open');
+    }
+  }
 
 
   $scope.welcome = function(){
@@ -193,6 +205,30 @@ travel.controller('MainCtrl', function($scope, $ionicPlatform, $timeout, Categor
     $scope.hideTab();
   };
 
+  $scope.optionsPanel = function(note){
+    if($('.options-panel-wrapper').hasClass('opened')){//category-wrapper is open
+      $('.options-panel-wrapper').fadeOut(300).removeClass('opened');
+      $('.option-button').text('options');
+    }else{//cities-wrapper is open
+      $('.options-panel-wrapper').fadeIn(300).addClass('opened');
+      $('.option-button').text('close');
+    }
+  }
+
+  $scope.launchNavigator = function(note) {
+    if(note.noteAddress != ''){
+      var destination = note.noteAddress;
+      var start = null;
+      $cordovaLaunchNavigator.navigate(destination, start).then(function() {
+        console.log("Navigator launched");
+      }, function (err) {
+        console.error(err);
+      });
+    }else{
+      alert('address field empty');
+    }
+  };
+
 });
 
 
@@ -317,7 +353,9 @@ travel.controller('includeCtrl', function($scope){
    {
      template: { categories: 'templates/category.html',
                  cities: 'templates/cities.html',
-                 note: 'templates/note.html' }
+                 note: 'templates/note.html',
+                 controlPanel: 'templates/control-panel.html',
+                 optionsPanel: 'templates/options-panel.html' }
    }
    ];
 

@@ -2,7 +2,7 @@ $(function(){
 
   "use strict";
 
-  var allCities = ['norwich', 'chicago', 'dc', 'toronto', 'san-francisco', 'philadelphia', 'istanbul', 'atlanta', 'new-york', 'nashville', 'london'];
+  var allCities = ['chicago', 'dc', 'toronto', 'san-francisco', 'philadelphia', 'istanbul', 'atlanta', 'new-york', 'nashville', 'london', 'firenze'];
 
   var city = allCities[Math.floor(Math.random() * allCities.length)];
 
