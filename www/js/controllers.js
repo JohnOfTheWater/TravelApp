@@ -1,4 +1,4 @@
-travel.controller('MainCtrl', function($scope, $ionicPlatform, $timeout, $cordovaLaunchNavigator, Categories, Cities, Notes, CityNotes, CordovaCategory, CordovaCity, CordovaNote, Lokidb) {
+travel.controller('MainCtrl', function($scope, $ionicPlatform, $timeout, $cordovaLaunchNavigator, $cordovaEmailComposer, Categories, Cities, Notes, CityNotes, CordovaCategory, CordovaCity, CordovaNote, Lokidb) {
 
   //hide categories on page-load
   $('.category-list .item-complex').css('opacity', '0');
@@ -227,7 +227,21 @@ travel.controller('MainCtrl', function($scope, $ionicPlatform, $timeout, $cordov
     }else{
       alert('address field empty');
     }
-  };
+  }
+
+  $scope.composeEmail = function(note){
+    console.log(note);
+    var email = {
+      to: 'giovanni.delacqua@gmail.com',
+      cc: '',
+      subject: note.noteTitle+' in '+note.cityId,
+      body: '<h3>I want to share this with you!</h3><br><h4 style="margin:0">Title: '+note.noteTitle+'</h4><br><h4 style="margin:0">Phone: '+note.notePhone+'</h4><br><h4 style="margin:0">Address: '+note.noteAddress+'</h4><br><h4 style="margin:0">Email: '+note.noteEmail+'</h4><br><h4 style="margin:0">Site: '+note.noteSite+'</h4><br><h4 style="margin:0">Notes: '+note.noteNotes+'</h4><br>',
+      isHtml: true
+    };
+    $cordovaEmailComposer.open(email).then(null, function () {
+    // user cancelled email
+    });
+  }
 
 });
 
