@@ -1,4 +1,4 @@
-travel.controller('MainCtrl', function($scope, $ionicPlatform, $timeout, $cordovaLaunchNavigator, $cordovaEmailComposer, Categories, Cities, Notes, CityNotes, CordovaCategory, CordovaCity, CordovaNote, Lokidb) {
+travel.controller('MainCtrl', function($scope, $ionicPlatform, $timeout, $cordovaLaunchNavigator, $cordovaEmailComposer, $cordovaProgress, Categories, Cities, Notes, CityNotes, CordovaCategory, CordovaCity, CordovaNote, Lokidb) {
 
   //hide categories on page-load
   $('.category-list .item-complex').css('opacity', '0');
@@ -50,6 +50,7 @@ travel.controller('MainCtrl', function($scope, $ionicPlatform, $timeout, $cordov
     //console.log(cordova.file);//Cordova not available in the browser, only on device.
   };
   $scope.getLocation = function(){
+    // $cordovaProgress.showSimple(true);
     initMap();
     $timeout(function(){
       $('#map').removeClass('google-maps');
