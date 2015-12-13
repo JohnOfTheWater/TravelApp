@@ -27,7 +27,8 @@
     "ionic-plugin-keyboard",
     "cordova-plugin-file",
     "org.apache.cordova.file",
-    "uk.co.workingedge.phonegap.plugin.launchnavigator"
+    "uk.co.workingedge.phonegap.plugin.launchnavigator",
+    "cordova-plugin-geolocation"
   ],
   "cordovaPlatforms": [
     "ios"

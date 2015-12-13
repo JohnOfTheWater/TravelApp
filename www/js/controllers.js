@@ -1,4 +1,4 @@
-travel.controller('MainCtrl', function($scope, $ionicPlatform, $timeout, $cordovaLaunchNavigator, $cordovaEmailComposer, $cordovaProgress, Categories, Cities, Notes, CityNotes, CordovaCategory, CordovaCity, CordovaNote, Lokidb) {
+travel.controller('MainCtrl', function($scope, $ionicPlatform, $timeout, $cordovaLaunchNavigator, $cordovaEmailComposer, $cordovaProgress, $cordovaFlashlight, $cordovaAppAvailability, Categories, Cities, Notes, CityNotes, CordovaCategory, CordovaCity, CordovaNote, Lokidb) {
 
   //hide categories on page-load
   $('.category-list .item-complex').css('opacity', '0');
@@ -220,6 +220,12 @@ travel.controller('MainCtrl', function($scope, $ionicPlatform, $timeout, $cordov
     if(note.noteAddress != ''){
       var destination = note.noteAddress;
       var start = null;
+      // $cordovaAppAvailability.check('comgooglemaps://')
+      // .then(function() {
+      //   alert('google maps available');
+      // }, function () {
+      //   alert('google maps not available');
+      // });
       $cordovaLaunchNavigator.navigate(destination, start).then(function() {
         console.log("Navigator launched");
       }, function (err) {
@@ -242,6 +248,14 @@ travel.controller('MainCtrl', function($scope, $ionicPlatform, $timeout, $cordov
     $cordovaEmailComposer.open(email).then(null, function () {
     // user cancelled email
     });
+  }
+
+  $scope.toogleFlashlight = function(){
+    $cordovaFlashlight.toggle()
+    .then(function () {
+      console.log('success');
+    });
+      
   }
 
 });
