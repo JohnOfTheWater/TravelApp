@@ -274,7 +274,7 @@ travel.factory('CordovaNote', function($cordovaSQLite, DBA) {
     //     console.log(result);
     //     return DBA.getAll(result);
     //   });
-    var query = "SELECT id, noteTitle FROM notes WHERE cityId = '"+item.cityId+"' AND noteCat = "+item.noteCat+" ORDER BY noteTitle ASC";
+    var query = "SELECT id, noteTitle FROM notes WHERE cityId = '"+item.cityId+"' AND noteCat = '"+item.noteCat+"' ORDER BY noteTitle ASC";
     return $cordovaSQLite.execute(db, query).then(function(res){
       console.log(res.rows);
       return DBA.getAll(res);

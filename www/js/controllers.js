@@ -31,7 +31,7 @@ travel.controller('MainCtrl', function($scope, $ionicPlatform, $timeout, $cordov
   }
 
   $scope.updateNotes = function(parameters) {
-    console.log(parameters);
+    // console.log(parameters);
     CordovaNote.all(parameters).then(function(item){
       // console.log(item);
       $scope.notes = item;
@@ -140,19 +140,19 @@ travel.controller('MainCtrl', function($scope, $ionicPlatform, $timeout, $cordov
     $scope.updateCities();
     if(itemtype === 'note'){
       var cityId = $('#earth-icon').attr('value');
-      var catId = $('#category-header').attr('value');
-      var parameters = {cityId: cityId, noteCat: catId};
+      var category = $('#category-header').attr('value');
+      var parameters = {cityId: cityId, noteCat: category};
       $scope.updateNotes(parameters);
     }
   };
 
   $scope.showCategory = function(item){
-    // console.log(item);
+    console.log(item);
     $scope.category = item.categoryname;
     var cityId = $('#earth-icon').attr('value');
     $scope.catId = item.id;
     // $scope.notes = CityNotes(item.$id, cityId);
-    var parameters = {cityId: cityId, noteCat: item.id};
+    var parameters = {cityId: cityId, noteCat: item.categoryname};
     console.log(parameters);
     $scope.updateNotes(parameters);
     // alert('clicked');
@@ -255,7 +255,7 @@ travel.controller('MainCtrl', function($scope, $ionicPlatform, $timeout, $cordov
     .then(function () {
       console.log('success');
     });
-      
+
   }
 
 });
@@ -310,10 +310,10 @@ travel.controller("categoryController", ["$scope", "Notes", "Note", "CordovaNote
 
 
     $scope.newNote = function() {
-      var catId = $('#category-header').attr('value'),
-      cityId = $('.cities-wrapper .selected').attr('value');
-      var item = {noteTitle: $scope.noteTitle,
-                  noteCat: catId,
+      var category = $('#category-header').attr('value'),
+        cityId = $('.cities-wrapper .selected').attr('value'),
+        item = {noteTitle: $scope.noteTitle,
+                  noteCat: category,
                   cityId: cityId,
                   notePhone: '',
                   noteAddress: '',
@@ -322,7 +322,7 @@ travel.controller("categoryController", ["$scope", "Notes", "Note", "CordovaNote
                   noteNotes: ''};
       CordovaNote.add(item).then(function(){
         closeModal();
-        var parameters = {cityId: cityId, noteCat: catId};
+        var parameters = {cityId: cityId, noteCat: category};
         $scope.updateNotes(parameters);
       });
     };
