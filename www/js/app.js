@@ -25,7 +25,7 @@ travel.run(function($ionicPlatform, $cordovaSQLite, $timeout) {
     }
 
     //create categories table if not exists and insert some default category
-    $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS categories (id integer primary key AUTO_INCREMENT, categoryname text)").then(function(res){
+    $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS categories (id integer primary key, categoryname text)").then(function(res){
       // console.log(res);
       var query = "SELECT * FROM categories";
       $cordovaSQLite.execute(db, query).then(function(res){
