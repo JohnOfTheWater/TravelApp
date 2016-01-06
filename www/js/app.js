@@ -55,7 +55,7 @@ travel.run(function($ionicPlatform, $cordovaSQLite, $timeout) {
           console.log(res.rows);
         }else{
           console.log('way to go!');
-          var query = "INSERT INTO cities (cityname, selected) VALUES ('Nashville','yes'), ('Chicago','no'), ('Philadelphia','no'), ('Honk-Kong','no'), ('London','no')";
+          var query = "INSERT INTO cities (cityname, selected) VALUES ('Nashville','yes'), ('Chicago','no'), ('Philadelphia','no'), ('Hong-Kong','no'), ('London','no')";
           // alert(query);
           $cordovaSQLite.execute(db, query).then(function(){
             // alert('way to go cities!');

@@ -1,4 +1,4 @@
-travel.controller('MainCtrl', function($scope, $ionicPlatform, $timeout, $cordovaLaunchNavigator, $cordovaEmailComposer, $cordovaProgress, $cordovaFlashlight, $cordovaAppAvailability, Categories, Cities, Notes, CityNotes, CordovaCategory, CordovaCity, CordovaNote, Lokidb) {
+travel.controller('MainCtrl', function($scope, $ionicPlatform, $timeout, $cordovaLaunchNavigator, $cordovaEmailComposer, $cordovaProgress, $cordovaFlashlight, $cordovaAppAvailability, $cordovaCamera, Categories, Cities, Notes, CityNotes, CordovaCategory, CordovaCity, CordovaNote, Lokidb) {
 
   //hide categories on page-load
   $('.category-list .item-complex').css('opacity', '0');
@@ -255,8 +255,29 @@ travel.controller('MainCtrl', function($scope, $ionicPlatform, $timeout, $cordov
     .then(function () {
       console.log('success');
     });
-
   }
+
+  // $scope.takePicture = function(){
+  //   var options = {
+  //     quality: 50,
+  //     destinationType: Camera.DestinationType.DATA_URL,
+  //     sourceType: Camera.PictureSourceType.CAMERA,
+  //     allowEdit: true,
+  //     encodingType: Camera.EncodingType.JPEG,
+  //     targetWidth: 100,
+  //     targetHeight: 100,
+  //     popoverOptions: CameraPopoverOptions,
+  //     saveToPhotoAlbum: false,
+  //     correctOrientation:true
+  //   };
+
+  //   $cordovaCamera.getPicture(options).then(function(imageData) {
+  //     var image = document.getElementById('myImage');
+  //     image.src = "data:image/jpeg;base64," + imageData;
+  //   }, function(err) {
+  //     // error
+  //   });
+  // }
 
 });
 
