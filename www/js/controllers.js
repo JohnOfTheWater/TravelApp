@@ -398,6 +398,30 @@ travel.controller("categoryController", ["$scope", "Notes", "Note", "CordovaNote
   }
 ]);
 
+travel.controller("optionsPanelController", ["$scope", "Notes", "Note", "CordovaNote",
+  function($scope, Notes, Note, CordovaNote) {
+
+    $scope.openPicturesPanel = function(){
+      var id = $('.note-title').attr('data-id');
+      CordovaNote.get(id).then(function(note){
+        console.log(note);
+        CordovaPicture.all(note).then(function(pictures){ //add CordovaPicture in app.js
+          if(pictures){
+            $('.pictures-panel-wrapper').velocity('transition.expandIn', {duration:300});
+          }else{
+            alert('no pictures for '+note.noteTitle+' note.');
+          }
+        });
+      });
+    }
+
+    $scope.closePicturesPanel = function() {
+      $('.pictures-panel-wrapper').velocity('transition.expandOut', {duration:300});
+    };
+
+  }
+]);
+
 travel.controller('includeCtrl', function($scope){
    $scope.templates = [
    {
@@ -405,7 +429,8 @@ travel.controller('includeCtrl', function($scope){
                  cities: 'templates/cities.html',
                  note: 'templates/note.html',
                  controlPanel: 'templates/control-panel.html',
-                 optionsPanel: 'templates/options-panel.html' }
+                 optionsPanel: 'templates/options-panel.html',
+                 picturesPanel: 'templates/pictures-panel.html' }
    }
    ];
 

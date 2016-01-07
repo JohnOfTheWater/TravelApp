@@ -9545,6 +9545,22 @@ body {
         background-color: lightsteelblue;
         border: 1px solid; }
 
+.pictures-panel-wrapper {
+  display: none;
+  position: absolute;
+  outline: 1px solid;
+  z-index: 21;
+  width: 100%;
+  top: 45px;
+  background-color: lightsteelblue;
+  padding-bottom: 20px; }
+  .pictures-panel-wrapper .custom-close-pictures-panel {
+    position: absolute;
+    right: 8px;
+    top: 5px;
+    font-size: 32px;
+    color: black; }
+
 .control-panel-wrapper {
   overflow: auto;
   position: fixed;
