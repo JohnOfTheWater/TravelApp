@@ -257,27 +257,45 @@ travel.controller('MainCtrl', function($scope, $ionicPlatform, $timeout, $cordov
     });
   }
 
-  // $scope.takePicture = function(){
-  //   var options = {
-  //     quality: 50,
-  //     destinationType: Camera.DestinationType.DATA_URL,
-  //     sourceType: Camera.PictureSourceType.CAMERA,
-  //     allowEdit: true,
-  //     encodingType: Camera.EncodingType.JPEG,
-  //     targetWidth: 100,
-  //     targetHeight: 100,
-  //     popoverOptions: CameraPopoverOptions,
-  //     saveToPhotoAlbum: false,
-  //     correctOrientation:true
-  //   };
+  $scope.takePicture = function(){
+    var options = {
+      quality: 50,
+      destinationType: Camera.DestinationType.DATA_URL,
+      sourceType: Camera.PictureSourceType.CAMERA,
+      allowEdit: true,
+      encodingType: Camera.EncodingType.JPEG,
+      targetWidth: 100,
+      targetHeight: 100,
+      popoverOptions: CameraPopoverOptions,
+      saveToPhotoAlbum: true,
+      correctOrientation:true
+    };
 
-  //   $cordovaCamera.getPicture(options).then(function(imageData) {
-  //     var image = document.getElementById('myImage');
-  //     image.src = "data:image/jpeg;base64," + imageData;
-  //   }, function(err) {
-  //     // error
-  //   });
-  // }
+    $cordovaCamera.getPicture(options).then(function(imageData) {
+      // var image = document.getElementById('myImage');
+      // image.src = "data:image/jpeg;base64," + imageData;
+      //put the save imageData to pictures table here
+      $('.note-title').text(imageData);
+    }, function(err) {
+      // error
+    });
+  }
+
+  $scope.openPicturesPanel = function(){
+    var id = $('.note-title').attr('data-id');
+    CordovaNote.get(id).then(function(res){
+      console.log(res.noteTitle);
+      $scope.res = res;
+      // CordovaPicture.all(note).then(function(pictures){ //add CordovaPicture in app.js
+        // if(pictures){
+      if(res){
+        $('.pictures-panel-wrapper').velocity('transition.expandIn', {duration:300});
+      }else{
+        alert('no pictures for '+res.noteTitle+' note.');
+      }
+      // });
+    });
+  };
 
 });
 
@@ -351,7 +369,7 @@ travel.controller("categoryController", ["$scope", "Notes", "Note", "CordovaNote
     $scope.openNote = function(note) {
       console.log(note);
       CordovaNote.get(note.id).then(function(note){
-        console.log(note);
+        console.log(note.noteTitle);
         $scope.note = note;
         $('#earth-icon, ion-header-bar .button').velocity('fadeOut', {duration:300});
         $('.note-wrapper').velocity('transition.expandIn', {duration:300});
@@ -398,22 +416,8 @@ travel.controller("categoryController", ["$scope", "Notes", "Note", "CordovaNote
   }
 ]);
 
-travel.controller("optionsPanelController", ["$scope", "Notes", "Note", "CordovaNote",
+travel.controller("picturesPanelController", ["$scope", "Notes", "Note", "CordovaNote",
   function($scope, Notes, Note, CordovaNote) {
-
-    $scope.openPicturesPanel = function(){
-      var id = $('.note-title').attr('data-id');
-      CordovaNote.get(id).then(function(note){
-        console.log(note);
-        CordovaPicture.all(note).then(function(pictures){ //add CordovaPicture in app.js
-          if(pictures){
-            $('.pictures-panel-wrapper').velocity('transition.expandIn', {duration:300});
-          }else{
-            alert('no pictures for '+note.noteTitle+' note.');
-          }
-        });
-      });
-    }
 
     $scope.closePicturesPanel = function() {
       $('.pictures-panel-wrapper').velocity('transition.expandOut', {duration:300});
