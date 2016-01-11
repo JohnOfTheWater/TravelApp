@@ -65,7 +65,10 @@ travel.run(function($ionicPlatform, $cordovaSQLite, $timeout) {
       });
     });
 
+    //create NOTES table if not exists already
     $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS notes (id integer primary key, cityId text, noteAddress text, noteCat text, noteEmail text, noteNotes text, notePhone text, noteSite text, noteTitle text)");
+    //create PICTURES table if not exists already
+    $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS pictures (id integer primary key, cityId text, noteId integer, pictureString text)");
 
     // },700);
 
@@ -308,6 +311,47 @@ travel.factory('CordovaNote', function($cordovaSQLite, DBA) {
   self.update = function(note) {
     var parameters = [note.noteAddress, note.noteEmail, note.noteNotes, note.notePhone, note.noteSite, note.id];
     return DBA.query("UPDATE notes SET noteAddress = (?), noteEmail = (?), noteNotes = (?), notePhone = (?), noteSite = (?) WHERE id = (?)", parameters);
+  }
+
+  return self;
+});
+
+travel.factory('CordovaPicture', function($cordovaSQLite, DBA) {
+  var self = this;
+
+  self.all = function(item) {
+    var parameters = [item.cityId, item.id];
+    // console.log(parameters);
+    // return DBA.query("SELECT id, noteTitle FROM notes WHERE cityId = 'Nashville' AND noteCat = 1", parameters)
+    //   .then(function(result){
+    //     console.log(result);
+    //     return DBA.getAll(result);
+    //   });
+    var query = "SELECT id, pictureString FROM pictures WHERE cityId = '"+item.cityId+"' AND noteId = '"+item.id+"' ORDER BY id ASC";
+    return $cordovaSQLite.execute(db, query).then(function(res){
+      console.log(res.rows);
+      return DBA.getAll(res);
+    });
+  }
+
+
+  self.get = function(id) {
+    var parameters = [id];
+    return DBA.query("SELECT id, cityId, noteId, pictureString FROM pictures WHERE id = (?)", parameters)
+      .then(function(result) {
+        return DBA.getById(result);
+      });
+  }
+
+  self.add = function(item) {
+    var parameters = [item.cityId, item.noteId, item.pictureString];
+    return DBA.query("INSERT INTO pictures (cityId, noteId, pictureString) VALUES (?,?,?)", parameters);
+  }
+
+  self.remove = function(item) {
+    console.log(item.id);
+    var parameters = [item.id];
+    return DBA.query("DELETE FROM pictures WHERE id = (?)", parameters);
   }
 
   return self;

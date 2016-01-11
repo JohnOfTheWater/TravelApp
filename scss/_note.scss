@@ -69,7 +69,7 @@
     display: none;
     position: absolute;
     outline: 1px solid;
-    z-index: 21;
+    z-index: 22;
     width: 100%;
     top: 0px;
     background-color: lightsteelblue;
@@ -80,5 +80,10 @@
       top: 5px;
       font-size: 32px;
       color: black;
+    }
+    .pictures-panel-image{
+      width: 94%;
+      // height: 400px;
+      margin: 10px 3% 0;
     }
 }

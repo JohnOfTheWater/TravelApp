@@ -1,4 +1,4 @@
-travel.controller('MainCtrl', function($scope, $ionicPlatform, $timeout, $cordovaLaunchNavigator, $cordovaEmailComposer, $cordovaProgress, $cordovaFlashlight, $cordovaAppAvailability, $cordovaCamera, Categories, Cities, Notes, CityNotes, CordovaCategory, CordovaCity, CordovaNote, Lokidb) {
+travel.controller('MainCtrl', function($scope, $ionicPlatform, $timeout, $cordovaLaunchNavigator, $cordovaEmailComposer, $cordovaProgress, $cordovaFlashlight, $cordovaAppAvailability, $cordovaCamera, Categories, Cities, Notes, CityNotes, CordovaCategory, CordovaCity, CordovaNote, CordovaPicture, Lokidb) {
 
   //hide categories on page-load
   $('.category-list .item-complex').css('opacity', '0');
@@ -15,6 +15,22 @@ travel.controller('MainCtrl', function($scope, $ionicPlatform, $timeout, $cordov
     CordovaCategory.all().then(function(item){
       $scope.items = item;
     });
+  }
+
+  $scope.testtest = function() {
+    var x = $('.custom-textarea').val();
+    var item = {
+      cityId: "Nashville",
+      noteId: 13,
+      pictureString: "data:image/jpeg;base64,"+x
+    };
+    CordovaPicture.add(item).then(function(res){
+      console.log(res);
+    });
+    // var item = {
+    //   id: 5
+    // };
+    // CordovaPicture.remove(item);
   }
 
   $scope.updateCities = function() {
@@ -259,7 +275,7 @@ travel.controller('MainCtrl', function($scope, $ionicPlatform, $timeout, $cordov
 
   $scope.takePicture = function(){
     var options = {
-      quality: 50,
+      quality: 100,
       destinationType: Camera.DestinationType.DATA_URL,
       sourceType: Camera.PictureSourceType.CAMERA,
       allowEdit: true,
@@ -274,20 +290,30 @@ travel.controller('MainCtrl', function($scope, $ionicPlatform, $timeout, $cordov
     $cordovaCamera.getPicture(options).then(function(imageData) {
       // var image = document.getElementById('myImage');
       // image.src = "data:image/jpeg;base64," + imageData;
-      //put the save imageData to pictures table here
-      $('.note-title').text(imageData);
-    }, function(err) {
-      // error
+      var item = {
+        cityId: $('.title-note').attr('data-cityid'),
+        noteId: $('.title-note').attr('data-id'),
+        pictureString: "data:image/jpeg;base64," + imageData
+      };
+      CordovaPicture.add(item).then(function(pictures){
+        alert("success!");
+      }), function(err) {
+        alert("error");
+      }
     });
   }
 
   $scope.openPicturesPanel = function(){
     var id = $('.note-title').attr('data-id');
     CordovaNote.get(id).then(function(res){
-      console.log(res.noteTitle);
+      console.log(res);
       $scope.res = res;
-      // CordovaPicture.all(note).then(function(pictures){ //add CordovaPicture in app.js
-        // if(pictures){
+      CordovaPicture.all(res).then(function(pictures){
+        if(pictures){
+          console.log(pictures);
+          $scope.pictures = pictures;
+        }
+      });
       if(res){
         $('.pictures-panel-wrapper').velocity('transition.expandIn', {duration:300});
       }else{

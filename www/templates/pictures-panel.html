@@ -2,6 +2,9 @@
 <i class="button button-small ion-close-round custom-close-pictures-panel" ng-click="closePicturesPanel()"></i>
 
 <h3 class="note-title">{{res.noteTitle}}</h3>
+<div class="testtest" ng-repeat="pic in pictures">
+  <img class="pictures-panel-image" src="{{pic.pictureString}}">
+</div>
 <div class="pictures-wrapper">
 
 </div><!-- end of pictures-wrapper -->
