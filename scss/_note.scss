@@ -81,6 +81,16 @@
       font-size: 32px;
       color: black;
     }
+    .pic-wrapper{
+      position: relative;
+      .del-pic-button{
+        position: absolute;
+        bottom: 0.5em;
+        right: 0.7em;
+        font-size: 2.5em;
+        color: white;
+      }
+    }
     .pictures-panel-image{
       width: 94%;
       // height: 400px;

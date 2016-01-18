@@ -21,7 +21,7 @@ travel.controller('MainCtrl', function($scope, $ionicPlatform, $timeout, $cordov
     var x = $('.custom-textarea').val();
     var item = {
       cityId: "Nashville",
-      noteId: 13,
+      noteId: 9,
       pictureString: "data:image/jpeg;base64,"+x
     };
     CordovaPicture.add(item).then(function(res){
@@ -51,6 +51,15 @@ travel.controller('MainCtrl', function($scope, $ionicPlatform, $timeout, $cordov
     CordovaNote.all(parameters).then(function(item){
       // console.log(item);
       $scope.notes = item;
+    });
+  }
+
+  $scope.updatePictures = function(res){
+    CordovaPicture.all(res).then(function(pictures){
+      if(pictures){
+        console.log(pictures);
+        $scope.pictures = pictures;
+      }
     });
   }
 
@@ -280,8 +289,8 @@ travel.controller('MainCtrl', function($scope, $ionicPlatform, $timeout, $cordov
       sourceType: Camera.PictureSourceType.CAMERA,
       allowEdit: true,
       encodingType: Camera.EncodingType.JPEG,
-      targetWidth: 100,
-      targetHeight: 100,
+      targetWidth: 1500,
+      targetHeight: 1500,
       popoverOptions: CameraPopoverOptions,
       saveToPhotoAlbum: true,
       correctOrientation:true
@@ -290,13 +299,18 @@ travel.controller('MainCtrl', function($scope, $ionicPlatform, $timeout, $cordov
     $cordovaCamera.getPicture(options).then(function(imageData) {
       // var image = document.getElementById('myImage');
       // image.src = "data:image/jpeg;base64," + imageData;
+      var cityId = $('.title-note').attr('data-cityid'),
+          noteId = $('.title-note').attr('data-id');
       var item = {
-        cityId: $('.title-note').attr('data-cityid'),
-        noteId: $('.title-note').attr('data-id'),
+        cityId: cityId,
+        noteId: noteId,
         pictureString: "data:image/jpeg;base64," + imageData
       };
       CordovaPicture.add(item).then(function(pictures){
-        alert("success!");
+        var id = $('.note-title').attr('data-id');
+        CordovaNote.get(id).then(function(res){
+          $scope.updatePictures(res);
+        });
       }), function(err) {
         alert("error");
       }
@@ -308,12 +322,7 @@ travel.controller('MainCtrl', function($scope, $ionicPlatform, $timeout, $cordov
     CordovaNote.get(id).then(function(res){
       console.log(res);
       $scope.res = res;
-      CordovaPicture.all(res).then(function(pictures){
-        if(pictures){
-          console.log(pictures);
-          $scope.pictures = pictures;
-        }
-      });
+      $scope.updatePictures(res);
       if(res){
         $('.pictures-panel-wrapper').velocity('transition.expandIn', {duration:300});
       }else{
@@ -442,12 +451,22 @@ travel.controller("categoryController", ["$scope", "Notes", "Note", "CordovaNote
   }
 ]);
 
-travel.controller("picturesPanelController", ["$scope", "Notes", "Note", "CordovaNote",
-  function($scope, Notes, Note, CordovaNote) {
+travel.controller("picturesPanelController", ["$scope", "Notes", "Note", "CordovaNote", "CordovaPicture",
+  function($scope, Notes, Note, CordovaNote, CordovaPicture) {
 
     $scope.closePicturesPanel = function() {
       $('.pictures-panel-wrapper').velocity('transition.expandOut', {duration:300});
     };
+
+    $scope.deletePic = function(id){
+      console.log(id);
+      CordovaPicture.remove(id).then(function(){
+        var id = $('.note-title').attr('data-id');
+        CordovaNote.get(id).then(function(res){
+          $scope.updatePictures(res);
+        });
+      });
+    }
 
   }
 ]);

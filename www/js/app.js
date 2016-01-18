@@ -348,9 +348,9 @@ travel.factory('CordovaPicture', function($cordovaSQLite, DBA) {
     return DBA.query("INSERT INTO pictures (cityId, noteId, pictureString) VALUES (?,?,?)", parameters);
   }
 
-  self.remove = function(item) {
-    console.log(item.id);
-    var parameters = [item.id];
+  self.remove = function(id) {
+    console.log(id);
+    var parameters = [id];
     return DBA.query("DELETE FROM pictures WHERE id = (?)", parameters);
   }
 

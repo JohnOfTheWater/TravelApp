@@ -9560,6 +9560,14 @@ body {
     top: 5px;
     font-size: 32px;
     color: black; }
+  .pictures-panel-wrapper .pic-wrapper {
+    position: relative; }
+    .pictures-panel-wrapper .pic-wrapper .del-pic-button {
+      position: absolute;
+      bottom: 0.5em;
+      right: 0.7em;
+      font-size: 2.5em;
+      color: white; }
   .pictures-panel-wrapper .pictures-panel-image {
     width: 94%;
     margin: 10px 3% 0; }
