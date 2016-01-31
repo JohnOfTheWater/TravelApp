@@ -9,6 +9,11 @@ body{
   // border-bottom: 1px solid black !important;
 }
 
+.custom-header-bar{
+  background-color: #2CC285 !important;
+  border-color: #0FA86A !important;
+}
+
 //header
 .earth-custom{
   height: 30px;
@@ -119,8 +124,8 @@ body{
 //map styles
 #map{
   height: 150px;
-  border-bottom: 1px solid black;
-  border-top: 1px solid black;
+  // border-bottom: 1px solid black;
+  // border-top: 1px solid black;
   // background: url('../img/google-maps.jpg') !important;
   background-size: cover !important;
   background-position-y: 50% !important;

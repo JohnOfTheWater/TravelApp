@@ -9298,6 +9298,10 @@ body {
     overflow: scroll;
     margin-bottom: 44px; }
 
+.custom-header-bar {
+  background-color: #2CC285 !important;
+  border-color: #0FA86A !important; }
+
 .earth-custom {
   height: 30px;
   width: 30px;
@@ -9384,8 +9388,6 @@ body {
 
 #map {
   height: 150px;
-  border-bottom: 1px solid black;
-  border-top: 1px solid black;
   background-size: cover !important;
   background-position-y: 50% !important; }
   #map .gm-sm {
@@ -9462,7 +9464,7 @@ body {
 .categories-header {
   display: block;
   text-transform: uppercase;
-  background-color: slategray;
+  background-color: #71DB9D;
   color: white;
   border-style: none; }
 
